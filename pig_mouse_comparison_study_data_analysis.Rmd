@@ -2952,6 +2952,41 @@ heatmap.2(input, col = colorpanel(100,low = "#000033", high = "#66B2FF"), cexRow
 
 legend(0.95, 1.13, xpd = TRUE, legend=c("donors","HMA mice", "HMA piglets"),fill=c('red','dark green', 'blue'),cex=0.5)
 
+
+## Let's reorder the last two clusters of 'leaves' so that the piglet samples are together to make the plot more appealing
+
+write.csv(SampleIDs_dend_ELD2, file = 'SampleIDs_dend_ELD2.csv', row.names = F) # let's export vector with SampleIDs so we can modify the order
+SampleIDs_dend_ELD2_resorted <- read.table("SampleIDs_dend_ELD2.txt", header = T) # read-in the re-ordered SampleIDs
+SampleIDs_dend_ELD2_resorted$SampleID <- as.character(SampleIDs_dend_ELD2_resorted$SampleID)
+View(SampleIDs_dend_ELD2_resorted)
+SampleIDs_dend_ELD2_resorted <- as.vector(SampleIDs_dend_ELD2_resorted$SampleID)
+is.vector(SampleIDs_dend_ELD2_resorted) # check that it is a vector
+
+bray_dend_ELD2_rotated <- rotate(bray_dend_ELD2, SampleIDs_dend_ELD2_resorted) # rotate dendrogram to reflect new samples order
+plot(bray_dend_ELD2_rotated) # plot and see if the dendrogram is now in the desired order
+
+# reorder SampleIDs and colors so they match
+sorted_mapping_ELD2_rotated <- mapping_file_dendro_ELD2[match(SampleIDs_dend_ELD2_resorted, mapping_file_dendro_ELD2$SampleID),] 
+labels_colors(bray_dend_ELD2_rotated) <- sorted_mapping_ELD2_rotated$Color_Sp
+
+# reorder labels to make them match sample order
+labels(bray_dend_ELD2_rotated) <- sorted_mapping_ELD2_rotated$Time_point
+bray_dend_ELD2_rotated <- set(bray_dend_ELD2_rotated, "labels_cex", 0.5)
+plot(bray_dend_ELD2_rotated, ylab="Bray-Curtis distances")
+
+# assign new vectors for making the heatmap
+col_labels_2 <- labels(bray_dend_ELD2_rotated)
+col_labels_2 <- col_labels_2[order(order.dendrogram(bray_dend_ELD2_rotated))]
+col_cols_2 <- labels_colors(bray_dend_ELD2_rotated)
+col_cols_2 <- col_cols_2[order(order.dendrogram(bray_dend_ELD2_rotated))]
+
+# plotting reordered heatmap
+par(mgp=c(0.5,0.4,0))
+
+heatmap.2(input, col = colorpanel(100,low = "#000033", high = "#66B2FF"), cexRow=0.5, cexCol=0.65, scale="none", Colv = bray_dend_ELD2_rotated, trace = "none", density = "none", breaks = seq(from=min(range(input)), to=max(range(input)), length.out = 101), symm = F, symkey = F, symbreaks = T, labCol = col_labels_2, colCol = col_cols_2, ColSideColors = col_cols, margins = c(7.5,4), xlab = "inocula and fecal samples", ylab = "core SNR donor ASVs", dendrogram = "column", key = T) 
+
+legend(0.95, 1.13, xpd = TRUE, legend=c("donors","HMA mice", "HMA piglets"),fill=c('red','dark green', 'blue'),cex=0.5)
+
 #dev.off()
 ```
 
