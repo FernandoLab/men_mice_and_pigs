@@ -5450,485 +5450,17 @@ alpha_div_master_all_filt_ps <- prune_taxa(goodtaxa, alpha_div_master_ps_2)
 alpha_div_master_all_filt_ps
 ```
 
-**INF2 donor**
+
+**Peforming weekly alpha diversity comparisons**
 
 ```{r, echo=TRUE}
-## for INF2 HMA mice
-alpha_div_INF2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'INF2')
-alpha_div_INF2_ps
 
-# only keeping inoculae
-alpha_div_INF2_ps <- subset_samples(alpha_div_INF2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
-alpha_div_INF2_ps <- subset_samples(alpha_div_INF2_ps, SampleType != 'cecal')
-alpha_div_INF2_ps
-
-# removing piglet samples
-alpha_div_INF2_mice_ps <- subset_samples(alpha_div_INF2_ps, Species != 'piglet')
-alpha_div_INF2_mice_ps
-
-# removing euthanization samples
-alpha_div_INF2_mice_ps <- subset_samples(alpha_div_INF2_mice_ps, Description != '24h_before_euthanization')
-alpha_div_INF2_mice_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_INF2_mice_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-# Looks like there are two clear outliers for the 48hrs time point. These samples were identified as samples '29' and '37'
-
-# Let's remove these and redo the plot
-alpha_div_INF2_mice_ps_no_outliers <- subset_samples(alpha_div_INF2_mice_ps, SampleID != c('29', '37'))
-alpha_div_INF2_mice_ps_no_outliers
-
-p3 <- plot_richness(alpha_div_INF2_mice_ps_no_outliers, x = 'Alpha_Desc', measures = 'Shannon')
-p4 <- p3 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot()
-p4
-
-results = estimate_richness(alpha_div_INF2_mice_ps_no_outliers, measures = 'Shannon')
-d = sample_data(alpha_div_INF2_mice_ps_no_outliers)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-
-View(two_days)
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-library('ggpubr')
-
-p5 <- p4 + stat_compare_means(comparisons = my_comparisons, label = "p.signif" ) 
-p5
-
-
-## For early inoculation piglets
-
-# removing mouse samples
-alpha_div_INF2_piglets_ps <- subset_samples(alpha_div_INF2_ps, Species != 'mouse')
-alpha_div_INF2_piglets_ps
-
-# removing late inoculation piglets
-alpha_div_INF2_early_piglets_ps <- subset_samples(alpha_div_INF2_piglets_ps, Timingofinocu != 'late' | is.na(Timingofinocu))
-alpha_div_INF2_early_piglets_ps
-
-# remove samples at euthanization
-alpha_div_INF2_early_piglets_ps <- subset_samples(alpha_div_INF2_early_piglets_ps, Description != 'at_euthanization')
-alpha_div_INF2_early_piglets_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_INF2_early_piglets_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_INF2_early_piglets_ps, measures = 'Shannon')
-d = sample_data(alpha_div_INF2_early_piglets_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3                                                                           
-
-
-## For late inoculation piglets
-
-# removing early inoculation piglets
-alpha_div_INF2_late_piglets_ps <- subset_samples(alpha_div_INF2_piglets_ps, Timingofinocu != 'early' | is.na(Timingofinocu))
-alpha_div_INF2_late_piglets_ps
-
-# remove samples at euthanization
-alpha_div_INF2_late_piglets_ps <- subset_samples(alpha_div_INF2_late_piglets_ps, Description != 'at_euthanization')
-alpha_div_INF2_late_piglets_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_INF2_late_piglets_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_INF2_late_piglets_ps, measures = 'Shannon')
-d = sample_data(alpha_div_INF2_late_piglets_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3
-```
-
-
-**CHLD2 donor**
-
-```{r,echo=TRUE}
-
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'CHLD2')
-alpha_div_CHLD2_ps
-
-# only keeping inoculae
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, SampleType != 'cecal')
-alpha_div_CHLD2_ps
-
-# removing piglet samples
-alpha_div_CHLD2_mice_ps <- subset_samples(alpha_div_CHLD2_ps, Species != 'piglet')
-alpha_div_CHLD2_mice_ps
-
-# removing euthanization samples
-alpha_div_CHLD2_mice_ps <- subset_samples(alpha_div_CHLD2_mice_ps, Description != '24h_before_euthanization')
-alpha_div_CHLD2_mice_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_CHLD2_mice_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_CHLD2_mice_ps, measures = 'Shannon')
-d = sample_data(alpha_div_CHLD2_mice_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3
-
-
-## for CHLD2 piglets
-alpha_div_CHLD2_ps
-
-# removing mouse samples
-alpha_div_CHLD2_piglets_ps <- subset_samples(alpha_div_CHLD2_ps, Species != 'mouse')
-alpha_div_CHLD2_piglets_ps
-
-# removing euthanization samples
-alpha_div_CHLD2_piglets_ps <- subset_samples(alpha_div_CHLD2_piglets_ps, Description != 'at_euthanization')
-alpha_div_CHLD2_piglets_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_CHLD2_piglets_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_CHLD2_piglets_ps, measures = 'Shannon')
-d = sample_data(alpha_div_CHLD2_piglets_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3
-```
-
-
-**ADLT2 donor**
-
-```{r, echo=TRUE}
-alpha_div_ADLT2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'ADLT2')
-alpha_div_ADLT2_ps
-
-# only keeping inoculae
-alpha_div_ADLT2_ps <- subset_samples(alpha_div_ADLT2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
-alpha_div_ADLT2_ps <- subset_samples(alpha_div_ADLT2_ps, SampleType != 'cecal')
-alpha_div_ADLT2_ps
-
-# removing piglet samples
-alpha_div_ADLT2_mice_ps <- subset_samples(alpha_div_ADLT2_ps, Species != 'piglet')
-alpha_div_ADLT2_mice_ps
-
-# removing euthanization samples
-alpha_div_ADLT2_mice_ps <- subset_samples(alpha_div_ADLT2_mice_ps, Description != '24h_before_euthanization')
-alpha_div_ADLT2_mice_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_ADLT2_mice_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_ADLT2_mice_ps, measures = 'Shannon')
-d = sample_data(alpha_div_ADLT2_mice_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons, label = "p.adj") 
-p3
-
-
-
-## for ADLT2 piglets
-alpha_div_ADLT2_ps
-
-# removing mouse samples
-alpha_div_ADLT2_piglets_ps <- subset_samples(alpha_div_ADLT2_ps, Species != 'mouse')
-alpha_div_ADLT2_piglets_ps
-
-# removing euthanization samples
-alpha_div_ADLT2_piglets_ps <- subset_samples(alpha_div_ADLT2_piglets_ps, Description != 'at_euthanization')
-alpha_div_ADLT2_piglets_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_ADLT2_piglets_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_ADLT2_piglets_ps, measures = 'Shannon')
-d = sample_data(alpha_div_ADLT2_piglets_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons, label = "p.adj") 
-p3
-```
-
-
-**ELD2 donor**
-
-```{r, echo=TRUE}
-alpha_div_ELD2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'ELD2')
-alpha_div_ELD2_ps
-
-# only keeping inoculae
-alpha_div_ELD2_ps <- subset_samples(alpha_div_ELD2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
-alpha_div_ELD2_ps <- subset_samples(alpha_div_ELD2_ps, SampleType != 'cecal')
-alpha_div_ELD2_ps
-
-# removing piglet samples
-alpha_div_ELD2_mice_ps <- subset_samples(alpha_div_ELD2_ps, Species != 'piglet')
-alpha_div_ELD2_mice_ps
-
-# removing euthanization samples
-alpha_div_ELD2_mice_ps <- subset_samples(alpha_div_ELD2_mice_ps, Description != '24h_before_euthanization')
-alpha_div_ELD2_mice_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_ELD2_mice_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_ELD2_mice_ps, measures = 'Shannon')
-d = sample_data(alpha_div_ELD2_mice_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3
-
-
-## for ELD2 piglets
-alpha_div_ELD2_ps
-
-# removing mouse samples
-alpha_div_ELD2_piglets_ps <- subset_samples(alpha_div_ELD2_ps, Species != 'mouse')
-alpha_div_ELD2_piglets_ps
-
-# removing euthanization samples
-alpha_div_ELD2_piglets_ps <- subset_samples(alpha_div_ELD2_piglets_ps, Description != 'at_euthanization')
-alpha_div_ELD2_piglets_ps
-
-## Performing alpha diversity analyses
-
-# plotting richness
-p1 <- plot_richness(alpha_div_ELD2_piglets_ps, x = 'Alpha_Desc', measures = 'Shannon')
-p1 
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + geom_boxplot(outlier.shape = NA)
-p2
-
-results = estimate_richness(alpha_div_ELD2_piglets_ps, measures = 'Shannon')
-d = sample_data(alpha_div_ELD2_piglets_ps)
-
-# perform wilcoxon test
-donors = results[d[,'Alpha_Desc'] == 'donor_inocula',]
-two_days = results[d[,'Alpha_Desc'] == '48hrs_post_inoc',]
-week_1 = results[d[,'Alpha_Desc'] == '1week_post_inoc',]
-week_2 = results[d[,'Alpha_Desc'] == '2weeks_post_inoc',]
-week_3 = results[d[,'Alpha_Desc'] == '3weeks_post_inoc',]
-week_4 = results[d[,'Alpha_Desc'] == '4weeks_post_inoc',]
-week_5 = results[d[,'Alpha_Desc'] == '5weeks_post_inoc',]
-final =  results[d[,'Alpha_Desc'] == 'Final_collection',]
-
-wilcox.test(donors, two_days)
-wilcox.test(donors, week_1)
-wilcox.test(donors, week_2)
-wilcox.test(donors, week_3)
-wilcox.test(donors, week_4)
-wilcox.test(donors, week_5)
-wilcox.test(donors, final)
-
-my_comparisons <- list(c('donor_inocula', '48hrs_post_inoc'), c('donor_inocula', '1week_post_inoc'), c('donor_inocula', '2weeks_post_inoc'), c('donor_inocula', '3weeks_post_inoc'), c('donor_inocula', '4weeks_post_inoc'), c('donor_inocula', '5weeks_post_inoc'), c('donor_inocula', 'Final_collection'))
-
-p3 <- p2 + stat_compare_means(comparisons = my_comparisons) 
-p3
-```
-
-
-## Trying alpha diversity comparisons another way
-
-```{r, echo=TRUE}
-
-## for INF2 donor
+### for INF2 donor
 alpha_div_INF2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'INF2')
 alpha_div_INF2_ps <- subset_samples(alpha_div_INF2_ps, Timingofinocu != 'early'| is.na(Timingofinocu))
 alpha_div_INF2_ps
 
-# only keeping inoculae
+## only keeping inoculae
 alpha_div_INF2_ps <- subset_samples(alpha_div_INF2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
 alpha_div_INF2_ps <- subset_samples(alpha_div_INF2_ps, SampleType != 'cecal')
 alpha_div_INF2_ps
@@ -5937,21 +5469,139 @@ results_INF2 = estimate_richness(alpha_div_INF2_ps, measures = "Shannon")
 results_INF2_df <- as.data.frame(results_INF2)
 results_INF2_df$SampleID <- rownames(results_INF2_df)
 results_INF2_df <- results_INF2_df[c(2,1)]
-View(results_INF2_df)
 
 INF2_alpha_div_df <- merge(results_INF2_df, alpha_mapping_file, by='SampleID')
 View(INF2_alpha_div_df)
 
-p1 <- ggplot(INF2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot()
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1)) + xlab("Sampling Time Point") + ylab("Shannon Index")
+p1 <- ggplot(INF2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot() + labs(fill = "host species")
+p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Sampling Time Point") + ylab("Shannon Index")
 p2
 
+## Performing statistical comparisons using the 'Wilcoxon test (Mann-Whitney U test)' - Based on discussion on https://github.com/joey711/phyloseq/issues/578
 
-## for ADULT2 donor
+# For Mice
+alpha_div_INF2_ps_mice <- subset_samples(alpha_div_INF2_ps, Species != "piglet")
+results_INF2_mice = estimate_richness(alpha_div_INF2_ps_mice, measures = "Shannon")
+
+d = sample_data(alpha_div_INF2_ps_mice)
+
+donors = results_INF2_mice[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_INF2_mice[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_INF2_mice[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_INF2_mice[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_INF2_mice[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_INF2_mice[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_INF2_mice[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_INF2_mice[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
+
+# For Piglets
+alpha_div_INF2_ps_piglets <- subset_samples(alpha_div_INF2_ps, Species != "mouse")
+results_INF2_piglets = estimate_richness(alpha_div_INF2_ps_piglets, measures = "Shannon")
+
+d = sample_data(alpha_div_INF2_ps_piglets)
+
+donors = results_INF2_piglets[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_INF2_piglets[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_INF2_piglets[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_INF2_piglets[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_INF2_piglets[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_INF2_piglets[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_INF2_piglets[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_INF2_piglets[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
+
+
+### for CHLD2 donor
+alpha_div_CHLD2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'CHLD2')
+alpha_div_CHLD2_ps
+
+## only keeping inoculae
+alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
+alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, SampleType != 'cecal')
+alpha_div_CHLD2_ps
+
+results_CHLD2 = estimate_richness(alpha_div_CHLD2_ps, measures = "Shannon")
+results_CHLD2_df <- as.data.frame(results_CHLD2)
+results_CHLD2_df$SampleID <- rownames(results_CHLD2_df)
+results_CHLD2_df <- results_CHLD2_df[c(2,1)]
+View(results_CHLD2_df)
+
+CHLD2_alpha_div_df <- merge(results_CHLD2_df, alpha_mapping_file, by='SampleID')
+View(CHLD2_alpha_div_df)
+
+p1 <- ggplot(CHLD2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot() + labs(fill = "host species")
+p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Sampling Time Point") + ylab("Shannon Index")
+p2
+
+## Performing statistical comparisons using the 'Wilcoxon test (Mann-Whitney U test)'
+
+# For Mice
+alpha_div_CHLD2_ps_mice <- subset_samples(alpha_div_CHLD2_ps, Species != "piglet")
+results_CHLD2_mice = estimate_richness(alpha_div_CHLD2_ps_mice, measures = "Shannon")
+
+d = sample_data(alpha_div_CHLD2_ps_mice)
+
+donors = results_CHLD2_mice[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_CHLD2_mice[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_CHLD2_mice[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_CHLD2_mice[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_CHLD2_mice[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_CHLD2_mice[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_CHLD2_mice[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_CHLD2_mice[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
+
+# For Piglets
+alpha_div_CHLD2_ps_piglets <- subset_samples(alpha_div_CHLD2_ps, Species != "mouse")
+results_CHLD2_piglets = estimate_richness(alpha_div_CHLD2_ps_piglets, measures = "Shannon")
+
+d = sample_data(alpha_div_CHLD2_ps_piglets)
+
+donors = results_CHLD2_piglets[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_CHLD2_piglets[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_CHLD2_piglets[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_CHLD2_piglets[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_CHLD2_piglets[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_CHLD2_piglets[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_CHLD2_piglets[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_CHLD2_piglets[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
+
+
+### for ADULT2 donor
 alpha_div_ADLT2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'ADLT2')
 alpha_div_ADLT2_ps
 
-# only keeping inoculae
+## only keeping inoculae
 alpha_div_ADLT2_ps <- subset_samples(alpha_div_ADLT2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
 alpha_div_ADLT2_ps <- subset_samples(alpha_div_ADLT2_ps, SampleType != 'cecal')
 alpha_div_ADLT2_ps
@@ -5971,39 +5621,64 @@ View(results_ADLT2_df)
 ADLT2_alpha_div_df <- merge(results_ADLT2_df, alpha_mapping_file, by='SampleID')
 View(ADLT2_alpha_div_df)
 
-p1 <- ggplot(ADLT2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot()
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + theme(axis.text.x=element_text(angle=45,hjust=1))
+p1 <- ggplot(ADLT2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot() + labs(fill = "host species")
+p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Sampling Time Point") + ylab("Shannon Index")
 p2
 
+## Performing statistical comparisons using the 'Wilcoxon test (Mann-Whitney U test)'
 
-## for CHLD2 donor
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'CHLD2')
-alpha_div_CHLD2_ps
+# For Mice
+alpha_div_ADLT2_ps_mice <- subset_samples(alpha_div_ADLT2_ps, Species != "piglet")
+results_ADLT2_mice = estimate_richness(alpha_div_ADLT2_ps_mice, measures = "Shannon")
 
-# only keeping inoculae
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
-alpha_div_CHLD2_ps <- subset_samples(alpha_div_CHLD2_ps, SampleType != 'cecal')
-alpha_div_CHLD2_ps
+d = sample_data(alpha_div_ADLT2_ps_mice)
 
-results_CHLD2 = estimate_richness(alpha_div_CHLD2_ps, measures = "Shannon")
-results_CHLD2_df <- as.data.frame(results_CHLD2)
-results_CHLD2_df$SampleID <- rownames(results_CHLD2_df)
-results_CHLD2_df <- results_CHLD2_df[c(2,1)]
-View(results_CHLD2_df)
+donors = results_ADLT2_mice[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_ADLT2_mice[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_ADLT2_mice[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_ADLT2_mice[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_ADLT2_mice[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_ADLT2_mice[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_ADLT2_mice[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_ADLT2_mice[d[,'Alpha_Desc'] == '40_days_post_inoc',]
 
-CHLD2_alpha_div_df <- merge(results_CHLD2_df, alpha_mapping_file, by='SampleID')
-View(CHLD2_alpha_div_df)
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
 
-p1 <- ggplot(CHLD2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot()
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "48hrs_post_inoc", "1week_post_inoc", "2weeks_post_inoc","3weeks_post_inoc", "4weeks_post_inoc", "5weeks_post_inoc", "Final_collection")) + theme(axis.text.x=element_text(angle=45,hjust=1))
-p2
+# For Piglets
+alpha_div_ADLT2_ps_piglets <- subset_samples(alpha_div_ADLT2_ps, Species != "mouse")
+results_ADLT2_piglets = estimate_richness(alpha_div_ADLT2_ps_piglets, measures = "Shannon")
+
+d = sample_data(alpha_div_ADLT2_ps_piglets)
+
+donors = results_ADLT2_piglets[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_ADLT2_piglets[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_ADLT2_piglets[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_ADLT2_piglets[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_ADLT2_piglets[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_ADLT2_piglets[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_ADLT2_piglets[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_ADLT2_piglets[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
 
 
-## for ELD2 donor
+### for ELD2 donor
 alpha_div_ELD2_ps <- subset_samples(alpha_div_master_all_filt_ps, Donor == 'ELD2')
 alpha_div_ELD2_ps
 
-# only keeping inoculae
+## only keeping inoculae
 alpha_div_ELD2_ps <- subset_samples(alpha_div_ELD2_ps, Actual_inoculum != 'no' | is.na(Actual_inoculum))
 alpha_div_ELD2_ps <- subset_samples(alpha_div_ELD2_ps, SampleType != 'cecal')
 alpha_div_ELD2_ps
@@ -6017,223 +5692,61 @@ View(results_ELD2_df)
 ELD2_alpha_div_df <- merge(results_ELD2_df, alpha_mapping_file, by='SampleID')
 View(ELD2_alpha_div_df)
 
-p1 <- ggplot(ELD2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot()
-p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1))
+p1 <- ggplot(ELD2_alpha_div_df, aes(x=Alpha_Desc, y=Shannon, fill=Species)) + geom_boxplot() + labs(fill = "host species")
+p2 <- p1 + scale_x_discrete(limits=c("donor_inocula", "2_days_post_inoc", "7_days_post_inoc", "14_days_post_inoc","21_days_post_inoc", "28_days_post_inoc", "35_days_post_inoc", "40_days_post_inoc")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Sampling Time Point") + ylab("Shannon Index") 
 p2 
+
+## Performing statistical comparisons using the 'Wilcoxon test (Mann-Whitney U test)'
+
+# For Mice
+alpha_div_ELD2_ps_mice <- subset_samples(alpha_div_ELD2_ps, Species != "piglet")
+results_ELD2_mice = estimate_richness(alpha_div_ELD2_ps_mice, measures = "Shannon")
+
+d = sample_data(alpha_div_ELD2_ps_mice)
+
+donors = results_ELD2_mice[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_ELD2_mice[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_ELD2_mice[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_ELD2_mice[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_ELD2_mice[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_ELD2_mice[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_ELD2_mice[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_ELD2_mice[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
+
+# For Piglets
+alpha_div_ELD2_ps_piglets <- subset_samples(alpha_div_ELD2_ps, Species != "mouse")
+results_ELD2_piglets = estimate_richness(alpha_div_ELD2_ps_piglets, measures = "Shannon")
+
+d = sample_data(alpha_div_ELD2_ps_piglets)
+
+donors = results_ELD2_piglets[d[,'Alpha_Desc'] == 'donor_inocula',]
+two_days = results_ELD2_piglets[d[,'Alpha_Desc'] == '2_days_post_inoc',]
+week_1 = results_ELD2_piglets[d[,'Alpha_Desc'] == '7_days_post_inoc',]
+week_2 = results_ELD2_piglets[d[,'Alpha_Desc'] == '14_days_post_inoc',]
+week_3 = results_ELD2_piglets[d[,'Alpha_Desc'] == '21_days_post_inoc',]
+week_4 = results_ELD2_piglets[d[,'Alpha_Desc'] == '28_days_post_inoc',]
+week_5 = results_ELD2_piglets[d[,'Alpha_Desc'] == '35_days_post_inoc',]
+final =  results_ELD2_piglets[d[,'Alpha_Desc'] == '40_days_post_inoc',]
+
+wilcox.test(donors, two_days)
+wilcox.test(donors, week_1)
+wilcox.test(donors, week_2)
+wilcox.test(donors, week_3)
+wilcox.test(donors, week_4)
+wilcox.test(donors, week_5)
+wilcox.test(donors, final)
 ```
 
 
-##**Hierarchical clustering of samples**## :
-
-```{r, echo=TRUE}
-
-## INF2 Donor
-
-# do transformation of data (count table) using DESeq
-library('DESeq2'); packageVersion('DESeq2')
-pig_mouse_comp_INF2_comparison_ps
-deseq2_obj_INF2 <- phyloseq_to_deseq2(pig_mouse_comp_INF2_comparison_ps, ~ Species)
-class(deseq2_obj_INF2)
-trans_count_tab_INF2 <- assay(deseq2_obj_INF2)
-library("vegan")
-euc_dist_INF2 <- vegdist(t(trans_count_tab_INF2), method = "bray" ) # if wanting bray-curtis
-#euc_dist_INF2 <- dist(t(trans_count_tab_INF2))
-
-#pig_mouse_comp_INF2_comparison_ps.rarefied <- rarefy_even_depth(pig_mouse_comp_INF2_comparison_ps, rngseed = 1, sample.size = min(sample_sums(pig_mouse_comp_INF2_comparison_ps)), replace = F)  
-
-uwnifrac_dist_INF2 <- phyloseq::distance(pig_mouse_comp_INF2_comparison_ps.rarefied, method = "unifrac", weighted = F)
-
-# performing hierarchical clustering and plotting
-euc_clust_INF2 <- hclust(euc_dist_INF2, method = "ward.D2")
-plot(euc_clust_INF2)
-unifr_clust_INF2 <- hclust(uwnifrac_dist_INF2, method = "ward.D2")
-
-# need to color plot by 'Species' to see clustering patterns 
-# install.packages("dendextend"); packageVersion("dendextend")
-  library(dendextend)
-
-# reading in a new mapping file which has a column called 'Color' to facilitate coloring of dendrogram by 'Species'
-mapping_file_dendro_INF2 <- read.table("mapping_files_for_dendrograms/INF2_mapping_dendro.txt", sep = "\t", header = TRUE, comment.char = "")
-View(mapping_file_dendro_INF2)
-mapping_file_dendro_INF2$Color_Sp <- as.character(mapping_file_dendro_INF2$Color_Sp)
-
-# making dendrogram
-euc_dend_INF2 <- as.dendrogram(euc_clust_INF2, hang=0.1)
-SampleIDs_dend_INF2 <- labels(euc_dend_INF2) # this shows the order in which the samples are arranged in the dendrogram
-SampleIDs_dend_INF2
-
-unifr_dend_INF2 <- as.dendrogram(unifr_clust_INF2, hang=0.1)
-SampleIDs_dend_INF2 <- labels(unifr_dend_INF2)
-SampleIDs_dend_INF2
-
-sorted_mapping_INF2 <- mapping_file_dendro_INF2[match(SampleIDs_dend_INF2, mapping_file_dendro_INF2$SampleID),] # sorting mapping file by order of samples in dendrogram
-View(sorted_mapping_INF2)
-
-# color dendrogram labels 
-labels_colors(euc_dend_INF2) <- sorted_mapping_INF2$Color_Sp
-labels_colors(euc_dend_INF2) # check if sample IDs and colors correspond
-
-labels_colors(unifr_dend_INF2) <- sorted_mapping_INF2$Color_Sp
-labels_colors(unifr_dend_INF2)
-
-# change labels to reflect time point, change label size and plot dendrogram
-labels(euc_dend_INF2) <- sorted_mapping_INF2$Time_point
-euc_dend_INF2 <- set(euc_dend_INF2, "labels_cex", 0.5)
-plot(euc_dend_INF2, ylab="Euc. distances")
-
-labels(unifr_dend_INF2) <- sorted_mapping_INF2$Time_point
-unifr_dend_INF2 <- set(unifr_dend_INF2, "labels_cex", 0.5)
-plot(unifr_dend_INF2, ylab="Unweighted Unifrac distances")
-
-# adding distances to dendrogram
-install.packages("pvclust"); packageVersion("pvclust")
-plot(euc_dend_INF2, ylab="Euc. distances")
-with(pvclust:::hc2axes(as.hclust(euc_dend_INF2)),text(x.axis, y.axis, round(y.axis, 2), adj = c(.5, 1), cex = 0.2))
-
-  
-## CHLD2 Donor
-
-# do transformation of data (count table) using DESeq
-deseq2_obj_CHLD2 <- phyloseq_to_deseq2(pig_mouse_comp_CHLD2_comparison_ps, ~ Species)
-class(deseq2_obj_CHLD2)
-trans_count_tab_CHLD2 <- assay(deseq2_obj_CHLD2)
-euc_dist_CHLD2 <- dist(t(trans_count_tab_CHLD2))
-jac_dist_CHLD2 <- vegdist(t(trans_count_tab_CHLD2), method = "jaccard", binary = TRUE)
-
-uwnifrac_dist_CHLD2 <- phyloseq::distance(pig_mouse_comp_CHLD2_comparison_ps.rarefied, method = "unifrac", weighted = F)
-
-# performing hierarchical clustering and plotting
-jac_clust_CHLD2 <- hclust(jac_dist_CHLD2, method = "ward.D2")
-plot(jac_clust_CHLD2)
-unwunifrac_clust_CHLD2 <- hclust(uwnifrac_dist_CHLD2, method = "ward.D2")
-plot(unwunifrac_clust_CHLD2)
-# reading in a new mapping file which has a column called 'Color' to facilitate coloring of dendrogram by 'Species'
-mapping_file_dendro_CHLD2 <- read.table("mapping_files_for_dendrograms/CHLD2_mapping_dendro.txt", sep = "\t", header = TRUE, comment.char = "")
-mapping_file_dendro_CHLD2$Color_sp <- as.character(mapping_file_dendro_CHLD2$Color_sp)
-
-# making dendrogram
-jac_dend_CHLD2 <- as.dendrogram(jac_clust_CHLD2, hang=0.1)
-unwunifrac_dend_CHLD2 <- as.dendrogram(unwunifrac_clust_CHLD2, hang=0.1)
-
-SampleIDs_dend_CHLD2 <- labels(unwunifrac_dend_CHLD2) # this shows the order in which the samples are arranged in the dendrogram
-
-sorted_mapping_CHLD2 <- mapping_file_dendro_CHLD2[match(SampleIDs_dend_CHLD2, mapping_file_dendro_CHLD2$SampleID),] # sorting mapping file by order of samples in dendrogram
-
-# color dendrogram labels 
-labels_colors(jac_dend_CHLD2) <- sorted_mapping_CHLD2$Color_sp
-labels_colors(jac_dend_CHLD2) # check if sample IDs and colors correspond
-labels_colors(unwunifrac_dend_CHLD2) <- sorted_mapping_CHLD2$Color_sp
-labels_colors(unwunifrac_dend_CHLD2)
-
-# change label size and plot dendrogram
-jac_dend_CHLD2 <- set(jac_dend_CHLD2, "labels_cex", 0.5)
-labels(jac_dend_CHLD2) <- sorted_mapping_CHLD2$Time_point
-plot(jac_dend_CHLD2, ylab="Binary Jaccard distances")
-
-unwunifrac_dend_CHLD2 <- set(unwunifrac_dend_CHLD2, "labels_cex", 0.5)
-labels(unwunifrac_dend_CHLD2) <- sorted_mapping_CHLD2$Time_point
-plot(unwunifrac_dend_CHLD2, ylab="unweighted unifrac distances")
-
-
-## ADLT2 Donor
-
-pig_mouse_comp_ADLT2_comparison_ps
-uwnifrac_dist_ADLT2 <- phyloseq::distance(pig_mouse_comp_ADLT2_comparison_ps.rarefied, method = "unifrac", weighted = F)
-
-# do transformation of data (count table) using DESeq
-deseq2_obj_ADLT2 <- phyloseq_to_deseq2(pig_mouse_comp_ADLT2_comparison_ps, ~ Species)
-class(deseq2_obj_ADLT2)
-trans_count_tab_ADLT2 <- assay(deseq2_obj_ADLT2)
-euc_dist_ADLT2 <- dist(t(trans_count_tab_ADLT2))
-
-# performing hierarchical clustering and plotting
-euc_clust_ADLT2 <- hclust(euc_dist_ADLT2, method = "ward.D2")
-plot(euc_clust_ADLT2)
-
-unifr_clust_ADLT2 <- hclust(uwnifrac_dist_ADLT2, method = "ward.D2")
-plot(unifr_clust_ADLT2)
-
-
-# reading in a new mapping file which has a column called 'Color' to facilitate coloring of dendrogram by 'Species'
-# write.table(sample_data(pig_mouse_comp_ADLT2_comparison_ps), "ADLT2_mapping_dendro.txt", sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE) # modify this file by adding a nw column 'Color'
-mapping_file_dendro_ADLT2 <- read.table("mapping_files_for_dendrograms/ADLT2_mapping_dendro.txt", sep = "\t", header = TRUE, comment.char = "")
-mapping_file_dendro_ADLT2$Color_sp <- as.character(mapping_file_dendro_ADLT2$Color_sp)
-
-# making dendrogram
-euc_dend_ADLT2 <- as.dendrogram(euc_clust_ADLT2, hang=0.1)
-unifr_dend_ADLT2 <- as.dendrogram(unifr_clust_ADLT2, hang=0.1)
-
-SampleIDs_dend_ADLT2 <- labels(euc_dend_ADLT2) # this shows the order in which the samples are arranged in the dendrogram
-SampleIDs_dend_ADLT2 <- labels(unifr_dend_ADLT2)
-
-sorted_mapping_ADLT2 <- mapping_file_dendro_ADLT2[match(SampleIDs_dend_ADLT2, mapping_file_dendro_ADLT2$SampleID),] # sorting mapping file by order of samples in dendrogram
-
-# color dendrogram labels 
-labels_colors(euc_dend_ADLT2) <- sorted_mapping_ADLT2$Color_sp
-labels_colors(euc_dend_ADLT2) # check if sample IDs and colors correspond
-
-labels_colors(unifr_dend_ADLT2) <- sorted_mapping_ADLT2$Color_sp
-labels_colors(unifr_dend_ADLT2)
-
-# change label size and plot dendrogram
-euc_dend_ADLT2 <- set(euc_dend_ADLT2, "labels_cex", 0.5)
-labels(euc_dend_ADLT2) <- sorted_mapping_ADLT2$Time_point
-plot(euc_dend_ADLT2, ylab="Euc. distances")
-
-unifr_dend_ADLT2 <- set(unifr_dend_ADLT2, "labels_cex", 0.5)
-labels(unifr_dend_ADLT2) <- sorted_mapping_ADLT2$Time_point
-plot(unifr_dend_ADLT2, ylab="Unweighted Unifrac distances")
-
-
-## ELDERLY donor
-
-uwnifrac_dist_ELD2 <- phyloseq::distance(pig_mouse_comp_ELD2_comparison_ps.rarefied, method = "unifrac", weighted = F)
-
-# performing hierarchical clustering and plotting
-euc_clust_ELD2 <- hclust(euc_dist_ELD2, method = "ward.D2")
-plot(euc_clust_ELD2)
-
-unifr_clust_ELD2 <- hclust(uwnifrac_dist_ELD2, method = "ward.D2")
-plot(unifr_clust_ELD2)
-
-# reading in a new mapping file which has a column called 'Color' to facilitate coloring of dendrogram by 'Species'
-# write.table(sample_data(pig_mouse_comp_ELD2_comparison_ps), "ELD2_mapping_dendro.txt", sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE) # modify this file by adding a nw column 'Color'
-mapping_file_dendro_ELD2 <- read.table("mapping_files_for_dendrograms/ELD2_mapping_dendro.txt", sep = "\t", header = TRUE, comment.char = "")
-mapping_file_dendro_ELD2$Color_sp <- as.character(mapping_file_dendro_ELD2$Color_sp)
-
-# making dendrogram
-euc_dend_ELD2 <- as.dendrogram(euc_clust_ELD2, hang=0.1)
-unifr_dend_ELD2 <- as.dendrogram(unifr_clust_ELD2, hang=0.1)
-
-SampleIDs_dend_ELD2 <- labels(euc_dend_ELD2) # this shows the order in which the samples are arranged in the dendrogram
-SampleIDs_dend_ELD2 <- labels(unifr_dend_ELD2)
-
-sorted_mapping_ELD2 <- mapping_file_dendro_ELD2[match(SampleIDs_dend_ELD2, mapping_file_dendro_ELD2$SampleID),] # sorting mapping file by order of samples in dendrogram
-
-# color dendrogram labels 
-labels_colors(euc_dend_ELD2) <- sorted_mapping_ELD2$Color_sp
-labels_colors(euc_dend_ELD2) # check if sample IDs and colors correspond
-
-labels_colors(unifr_dend_ELD2) <- sorted_mapping_ELD2$Color_sp
-labels_colors(unifr_dend_ELD2)
-
-# change label size and plot dendrogram
-euc_dend_ELD2 <- set(euc_dend_ELD2, "labels_cex", 0.5)
-labels(euc_dend_ELD2) <- sorted_mapping_ELD2$Time_point
-plot(euc_dend_ELD2, ylab="Euc. distances")
-
-unifr_dend_ELD2 <- set(unifr_dend_ELD2, "labels_cex", 0.5)
-labels(unifr_dend_ELD2) <- sorted_mapping_ELD2$Time_point
-plot(unifr_dend_ELD2, ylab="Unweighted Unifrac distances")
-
-plot(unifr_dend_INF2, ylab="Unweighted Unifrac distances")
-plot(unwunifrac_dend_CHLD2, ylab="unweighted unifrac distances")
-plot(unifr_dend_ADLT2, ylab="Unweighted Unifrac distances")
-plot(unifr_dend_ELD2, ylab="Unweighted Unifrac distances")
-```
-
-
-##**Variation of abundance with time point relative to donor**##
+##**Variation of taxa abundance with time point relative to donor**##
 
 We also thought that it would be useful to compare the relative abundances of core donor ASVs to the HMA animal models at each time point
 
