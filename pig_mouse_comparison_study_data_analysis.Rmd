@@ -9316,7 +9316,8 @@ write.table(ELD2_non_coloniz_core_taxa_GENUS_table, "ELD2_non_coloniz_core_GENUS
 ```
 
 
-##**Calculating mean and standard deviation for core ASVs in each donor among the three different species and assigning taxonomy**## 
+##**Calculating mean and standard deviation for core ASVs in each donor among the three different host species and assigning taxonomy**## 
+
 
 **INF2 Donor**
 
@@ -10218,25 +10219,7 @@ perst_colonizing_core_taxa_CHLD2_mice
 ```
 
 
-##**Comparing relative abundances at the Phylum, Family, and Genus levels (Not sure of the best way to do this)
-
-
-**INF2 donor**
-
-```{r, echo=TRUE}
-pig_mouse_comp_INF2_comparison_ps # cecal samples and 'early' inoculation piglet samples taken out
-
-## PHYLUM level
-
-INF2_phylum_ps <- tax_glom(pig_mouse_comp_INF2_comparison_ps, "Phylum", NArm = FALSE)
-
-# Donor vs HMA mice
-
-persistently_colonizing_taxa_INF2_mice
-```
-
-
-##**Calculating mean and standard deviation for persistently colonizing core ASVs in each donor among the three different species and assigning taxonomy**## 
+##**Calculating mean and standard deviation for persistently colonizing core ASVs in each donor among the three different host species and assigning taxonomy**## 
 
 **INF2 Donor**
 
@@ -10622,19 +10605,23 @@ perst_rel_abund_core_INF2_taxa_piglets
 perst_rel_abund_core_CHLD2_taxa_mice
 perst_rel_abund_core_CHLD2_taxa_piglets
 
-# INF
+# INF2
 length(perst_rel_abund_core_INF2_taxa_piglets)/length(core_INF2_taxa_colonizing_piglets) * 100
 
-# CHLD
+# CHLD2
 length(perst_rel_abund_core_CHLD2_taxa_piglets)/length(core_CHLD2_taxa_colonizing_piglets) * 100
 
-# ADLT
+# ADLT2
 length(perst_rel_abund_core_ADLT2_taxa_piglets)/length(core_ADLT2_taxa_colonizing_piglets) * 100
 
-# ELD
+# ELD2
 length(perst_rel_abund_core_ELD2_taxa_piglets)/length(core_ELD2_taxa_colonizing_piglets) * 100
 
 ```
+
+
+##**Making Circos Plots in the form of Chord Diagrams**##
+
 
 ## Generating data for Circos plots ##
 
@@ -10901,7 +10888,6 @@ circos.clear() # Need to clear before starting to make a new chord diagram using
 
 ```{r, echo=TRUE}
 # Load circlize package and initiate
-library(circlize)
 circos.par("track.height" = 0.1)
 
 # Read in table with relative abundances for donor and HMA animals
@@ -10960,8 +10946,7 @@ circos.clear() # Need to clear before starting to make a new chord diagram using
 **ADLT donor**
 
 ```{r, echo=TRUE}
-# Load circlize package and initiate
-library(circlize)
+
 circos.par("track.height" = 0.1, gap.degree = 0.8)
 
 # Read in table with relative abundances for donor and HMA animals
@@ -11022,8 +11007,7 @@ circos.clear() # Need to clear before starting to make a new chord diagram using
 **ELD donor**
 
 ```{r, echo=TRUE}
-# Load circlize package and initiate
-library(circlize)
+
 circos.par("track.height" = 0.1, gap.degree = 0.8)
 
 # Read in table with relative abundances for donor and HMA animals
