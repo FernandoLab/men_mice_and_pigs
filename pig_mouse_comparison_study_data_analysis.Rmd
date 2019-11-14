@@ -11405,4 +11405,887 @@ jaccardSets(core_ELD2_taxa,core_ELD2_taxa_colonizing_piglets) # 0.69
 
 
 
+#################################################################################
+DATA ANALYSIS FOR SUPPLEMENTARY MATERIALS
+#################################################################################
+
+The work below show the data analysis steps for the **supplementary materials** section of the study. This includes the follow-up comparison between HMA piglets and HMA mice for the establishment of a second infant donor microbiota as well as the evaluation of the establishment of donor taxa from a second set of CHLD, ADLT, and SNR donors in a different group of HMA mice (C3H/HeN).
+
+The first sequencing run had **432** .fastq files corresponding to **216** samples. These fastq files were in the folder 'round_2_JUNE_fastq_files' :
+
+```{r, echo=TRUE}
+set.seed(100) #for reproducibility?
+
+#change to required work directory
+setwd("/Users/niroshaluthge/Desktop/NDA/manuscripts/pig_mouse_comparison_study/supp_materials_data_analysis")
+getwd()
+
+MiSeq_path <- "./supp_materials_data_analysis/round_2_JUNE_fastq_files" #specify path to where the raw '.fastq' files are
+list.files(MiSeq_path)
+
+fnFs <- sort(list.files(MiSeq_path, pattern = "_R1_001.fastq"))
+fnRs <- sort(list.files(MiSeq_path, pattern = "_R2_001.fastq"))
+
+sampleNames <- sapply(strsplit(fnFs, "_"), `[`, 1)
+
+fnFs <- file.path(MiSeq_path, fnFs)
+fnRs <- file.path(MiSeq_path, fnRs)
+fnFs[1:3]
+fnRs[1:3]
+
+plotQualityProfile(fnFs[1:2])
+plotQualityProfile(fnRs[1:2])
+
+filt_path <- file.path(MiSeq_path, "filtered") # folder for quality-filtered reads
+if(!file_test("-d", filt_path))  dir.create(filt_path)
+filtFs <- file.path(filt_path, paste0(sampleNames, "_F_filt.fastq"))
+filtRs <- file.path(filt_path, paste0(sampleNames, "_R_filt.fastq"))
+
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen = c(225,70), maxN=0, maxEE=c(2,2), truncQ=2, rm.phix = TRUE, compress=TRUE, multithread=TRUE)
+head(out) 
+write.table(out, "out_file_round_2_JUNE_FWD_only.txt", sep = "\t", col.names = NA, row.names = T, quote = F) 
+
+# There were 16676415 input reads and 14652855 output reads, so we have retained ~ 87.9% of the reads after this filtering and trim step
+
+derepFs <- derepFastq(filtFs, verbose = TRUE)
+derepRs <- derepFastq(filtRs, verbose = TRUE)
+names(derepFs) <- sampleNames
+names(derepRs) <- sampleNames
+
+errF <- learnErrors(filtFs, multithread = TRUE)
+errR <- learnErrors(filtRs, multithread = TRUE)
+plotErrors(errF)
+plotErrors(errR)
+
+dadaFs <- dada(derepFs, err = errF, multithread = TRUE)
+dadaRs <- dada(derepRs, err = errR, multithread = TRUE)
+dadaFs[1] 
+
+# make sequence table from just the Forward reads (Since we'll be using just the forward reads from the 'AUGUST' run; see further below in the next section):
+seqtabAll_round_2_JUNE_FWD <- makeSequenceTable(dadaFs)
+table(nchar(getSequences(seqtabAll_round_2_JUNE_FWD)))
+sum(seqtabAll_round_2_JUNE_FWD) # There were 14487858
+dim(seqtabAll_round_2_JUNE_FWD)
+saveRDS(seqtabAll_round_2_JUNE_FWD, "seqtabAll_round_2_JUNE_FWD.rds")
+
+# track reads through the process
+getN <- function(x) sum(getUniques(x))
+track_round_2_JUNE <- cbind(out, sapply(dadaFs, getN), rowSums(seqtabAll_round_2_JUNE_FWD))
+colnames(track_round_2_JUNE) <- c("input", "filtered", "denoisedF", "seqtable")
+rownames(track_round_2_JUNE) <- sampleNames
+head(track_round_2_JUNE)
+write.table(track_round_2_JUNE, 'tracking_reads_through_pipeline_round_2_JUNE_FWD.txt', sep = '\t', col.names = NA, row.names = TRUE, quote = FALSE)
+```
+
+
+The second sequencing run had **194** .fastq files corresponding to **97** samples. These fastq files were in the folder 'round_2_AUGUST_fastq_files' :
+
+```{r, echo=TRUE}
+MiSeq_path <- "./supp_materials_data_analysis/round_2_AUGUST_fastq_files" #specify path to where the raw '.fastq' files are
+list.files(MiSeq_path)
+
+fnFs <- sort(list.files(MiSeq_path, pattern = "_R1_001.fastq"))
+fnRs <- sort(list.files(MiSeq_path, pattern = "_R2_001.fastq"))
+
+sampleNames <- sapply(strsplit(fnFs, "_"), `[`, 1)
+
+fnFs <- file.path(MiSeq_path, fnFs)
+fnRs <- file.path(MiSeq_path, fnRs)
+fnFs[1:3]
+fnRs[1:3]
+
+plotQualityProfile(fnFs[1:2])
+plotQualityProfile(fnRs[1:2])
+
+# the reverse read quality is really bad so we'll use only the forward reads
+
+filt_path <- file.path(MiSeq_path, "filtered") # folder for quality-filtered reads
+if(!file_test("-d", filt_path))  dir.create(filt_path)
+filtFs <- file.path(filt_path, paste0(sampleNames, "_F_filt.fastq"))
+
+out <- filterAndTrim(fnFs, filtFs, truncLen = 225, maxN=0, maxEE=2, truncQ=2, rm.phix = TRUE, compress=TRUE, multithread=TRUE)
+head(out) 
+write.table(out, "out_file_round_2_AUGUST_FWD_only.txt", sep = "\t", col.names = NA, row.names = T, quote = F) 
+
+# There were 5463278 input reads and 4483935 output reads, so we have retained ~ 82% of the reads after this filtering and trim step
+
+derepFs <- derepFastq(filtFs, verbose = TRUE)
+names(derepFs) <- sampleNames
+
+errF <- learnErrors(filtFs, multithread = TRUE)
+plotErrors(errF)
+
+dadaFs <- dada(derepFs, err = errF, multithread = TRUE)
+dadaFs[1] 
+
+seqtabAll_round_2_AUGUST_FWD <- makeSequenceTable(dadaFs) # 4416740 sequences retained
+table(nchar(getSequences(seqtabAll_round_2_AUGUST_FWD)))
+sum(seqtabAll_round_2_AUGUST_FWD)
+dim(seqtabAll_round_2_AUGUST_FWD)
+
+#Store seqtabAll2 from round1 August sequencing run as a .rds file
+saveRDS(seqtabAll_round_2_AUGUST_FWD, "seqtabAll_round_2_AUGUST_FWD.rds")
+
+# track reads through the process
+getN <- function(x) sum(getUniques(x))
+track_round_2_AUGUST <- cbind(out, sapply(dadaFs, getN), rowSums(seqtabAll_round_2_AUGUST_FWD))
+colnames(track_round_2_AUGUST) <- c("input", "filtered", "denoisedF", "seqtable")
+rownames(track_round_2_AUGUST) <- sampleNames
+head(track_round_2_AUGUST)
+write.table(track_round_2_AUGUST, 'tracking_reads_through_pipeline_round_2_AUGUST_FWD.txt', sep = '\t', col.names = NA, row.names = TRUE, quote = FALSE)
+```
+
+Let's merge the sequence tables made from just the forward reads ('FWD') for the 'June' and 'August' sequencing runs:
+
+```{r,echo=TRUE}
+seqtab_JUNE_FWD <- readRDS("seqtabAll_round_2_JUNE_FWD.rds")
+dim(seqtab_JUNE_FWD)
+seqtab_AUGUST_FWD <- readRDS("seqtabAll_round_2_AUGUST_FWD.rds")
+dim(seqtab_AUGUST_FWD)
+
+# merging the two sequence tables
+merged_seqtabs_FWD <- mergeSequenceTables(seqtab_JUNE_FWD,seqtab_AUGUST_FWD)
+dim(merged_seqtabs_FWD)
+```
+
+Removing chimeras :
+
+```{r,echo=TRUE}
+merged_seqtabs_FWD_NoC <- removeBimeraDenovo(merged_seqtabs_FWD, method = "consensus", multithread = TRUE, verbose = TRUE)
+dim(merged_seqtabs_FWD_NoC) # 8115 ASVs removed as bimeras
+sum(merged_seqtabs_FWD_NoC)/sum(merged_seqtabs_FWD) # chimeras accounted for ~ 15% of total reads
+```
+
+Assigning taxonomy to the remaining ASVs using the SILVA database files :
+
+```{r, echo=TRUE}
+fastaRef <- "./silva_nr_v132_train_set.fa" 
+taxTab_r2 <- assignTaxonomy(merged_seqtabs_FWD_NoC, refFasta = fastaRef, multithread = TRUE)
+taxTab_r2 <- addSpecies(taxTab_r2, "./silva_species_assignment_v132.fa")
+unname(head(taxTab_r2))
+head(taxTab_r2)
+write.table(taxTab_r2, "round_2_full_taxa_table.txt", sep = "\t", row.names = T, col.names = NA, quote = F)
+```
+
+The next step is to make the phylogenetic tree. This requires a FASTA file from the ASV sequences which will be generated using the following code from https://forum.qiime2.org/t/importing-dada2-and-phyloseq-objects-to-qiime-2/4683 :
+
+```{r, echo=TRUE}
+uniquesToFasta(merged_seqtabs_FWD_NoC, fout = 'supp_mater_ASV.fna', ids = colnames(merged_seqtabs_FWD_NoC))
+```
+
+Using the 'supp_mater_ASV.fna' FASTA file as the input file, a phylogenetic tree was made using the SILVA database and MOTHUR as described previously for the main material. Reading in the phylogenetic tree made in MOTHUR to R and phyloseq environment :
+
+```{r, echo = TRUE}
+tree_file_r2 <- 'supp_mater_ASV.phylip.tre'
+phylo_tree_r2 <- read_tree(tree_file_r2)
+```
+
+Let's read in the mapping file :
+
+```{r, echo=TRUE}
+mapping_file <- read.table('supp_materials_data_analysis/pig_mouse_comp_round_2_mapping_file.txt', sep = "\t", header = TRUE, comment.char = "")
+row.names(mapping_file) <- as.character(mapping_file[,1])
+View(mapping_file)
+```
+
+Now we can merge the sequence table with the maooing file, phylogenetic tree, and the taxonomy table to obtain the main phyloseq object :
+
+```{r, echo=TRUE}
+supp_mater_ps1 <- phyloseq(otu_table(merged_seqtabs_FWD_NoC, taxa_are_rows = FALSE), sample_data(mapping_file), phy_tree(phylo_tree_r2), tax_table(taxTab_r2))
+supp_mater_ps1
+
+# replacing long sequence names with ASV IDs 
+taxa_names(supp_mater_ps1) <- paste0("ASV_", seq(ntaxa(supp_mater_ps1)))
+supp_mater_ps1
+
+write.table(sample_data(supp_mater_ps1), "mapping_file_supp_materials-2.txt", sep = "\t", row.names = F, col.names = T, quote = F)
+```
+
+Removing potential contaminant ASVs using the 'decontam' program of phyloseq :
+ 
+```{r, echo=TRUE}
+library(decontam); packageVersion('decontam')
+
+sample_data(supp_mater_ps1)$is.neg <- sample_data(supp_mater_ps1)$Sample_or_Control == "negative_control"
+
+# identifying potential contaminants using the 'prevalence' method
+contamdf.prev_batch <- isContaminant(supp_mater_ps1, method = "prevalence", neg = "is.neg", batch = sample_data(supp_mater_ps1)$Batch, batch.combine = "minimum")
+table(contamdf.prev_batch$contaminant) # 11 contaminant ASVs identified 
+
+# removing contaminants
+contams <- which(contamdf.prev_batch$contaminant)
+contams <- paste0("ASV_", contams)  # renaming contaminants so that they have the format 'ASV_#'
+contams
+
+alltaxa = taxa_names(supp_mater_ps1)
+goodtaxa = alltaxa[!(alltaxa %in% contams)]
+decont_supp_mater_ps1 <- prune_taxa(goodtaxa, supp_mater_ps1)  
+decont_supp_mater_ps1
+sum(otu_table(decont_supp_mater_ps1))/sum(otu_table(supp_mater_ps1)) # >99.99% of reads remain after removing potential contaminants
+```
+
+Removing negative control samples :
+
+```{r, echo=TRUE}
+supp_mater_no_negs_ps1 <- subset_samples(decont_supp_mater_ps1, Sample_or_Control != 'negative_control')
+supp_mater_no_negs_ps1
+```
+
+Filtering out ASVs that are classified in the kingdoms 'Archaea' or 'Eukaryota' as well as those ASVs that have a Mitochondrial classification :
+
+```{r, echo=TRUE}
+remov_kingdoms <- c('Archaea', 'Eukaryota')
+supp_mater_ps_taxa_filt <- subset_taxa(supp_mater_no_negs_ps1, !Kingdom %in% remov_kingdoms) 
+#(Family != 'Mitochondria' | is.na(Family))) 
+
+# remove Mitochondrial sequences
+supp_mater_ps_taxa_filt <- subset_taxa(supp_mater_ps_taxa_filt, Family != 'Mitochondria' | is.na(Family))
+supp_mater_ps_taxa_filt
+
+# remove any ASV which has a non-Bacterial classification
+supp_mater_ps_taxa_filt <- subset_taxa(supp_mater_ps_taxa_filt, Kingdom == 'Bacteria') 
+supp_mater_ps_taxa_filt
+
+# removing non-Melainabacterial Cyanobacterial ASVs
+Cyano_ps <- subset_taxa(supp_mater_ps_taxa_filt, Phylum == 'Cyanobacteria') # Isolating the Cyanobacterial ASVs
+remov_Cyano_ps <- subset_taxa(Cyano_ps, Class != 'Melainabacteria') # identifying Cyanobacterial ASVs that are not 'Melainabacteria'
+Cyano_to_remov <- taxa_names(remov_Cyano_ps)
+Cyano_to_remov <- append(Cyano_to_remov, 'ASV_2444')
+
+# Filtering out the non-Melainabacterial Cyanobacterial ASVs
+alltaxa = taxa_names(supp_mater_ps_taxa_filt)
+goodtaxa = alltaxa[!(alltaxa %in% Cyano_to_remov)]
+supp_mater_ps_taxa_filt_no_Cyano <- prune_taxa(goodtaxa, supp_mater_ps_taxa_filt)
+supp_mater_ps_taxa_filt_no_Cyano
+
+write.table(tax_table(supp_mater_ps_taxa_filt_no_Cyano), 'taxa_table_after_taxa_filtering.txt', sep = "\t")
+```
+
+Computing prevalence of each ASV to filter out those that are present in only a single sample :
+
+```{r, echo=TRUE}
+# Calculating prevalence for each ASV
+prevdf <- apply(X = otu_table(supp_mater_ps_taxa_filt_no_Cyano), MARGIN = ifelse(taxa_are_rows(supp_mater_ps_taxa_filt_no_Cyano), yes = 1, no = 2), FUN = function(x){sum(x > 0)})
+View(prevdf)
+prevdf_with_taxa <- data.frame(Prevalence = prevdf, TotalAbundance = taxa_sums(supp_mater_ps_taxa_filt_no_Cyano), tax_table(supp_mater_ps_taxa_filt_no_Cyano))
+View(prevdf_with_taxa)
+
+# Retaining only those ASVs found in more than one sample
+keepTaxa <- rownames(prevdf_with_taxa)[(prevdf_with_taxa$Prevalence > 1)]
+supp_mater_ps_all_filtd <- prune_taxa(keepTaxa, supp_mater_ps_taxa_filt_no_Cyano)
+supp_mater_ps_all_filtd # We've filtered out 2755 ASVs
+
+sum(otu_table(supp_mater_ps_all_filtd))/sum(otu_table(supp_mater_ps_taxa_filt_no_Cyano)) # However, those 2755 ASVs only accounted for ~0.01% of reads
+```
+
+Looking at the distribution of reads per sample :
+
+```{r, echo=TRUE}
+reads_per_sample_df <- data.frame(Reads = sample_sums(supp_mater_ps_all_filtd)) 
+reads_per_sample_df$sampleID <- rownames(reads_per_sample_df)
+View(reads_per_sample_df)
+reads_per_sample_df <- reads_per_sample_df[,c(2,1)] # reorder columns
+reads_per_sample_df_sorted <- reads_per_sample_df[order(reads_per_sample_df$Reads),] # order samples by read count (ascending)
+View(reads_per_sample_df_sorted) # check that it looks right
+write.table(reads_per_sample_df_sorted, 'Reads_per_sample_after_all_the_filtering_steps_supp_mater.txt', sep = "\t", col.names = T, row.names = F, quote = F)
+
+# Depth information
+min_read_depth <- min(sample_sums(supp_mater_ps_all_filtd))
+min_read_depth # 3,174
+max_read_depth <- max(sample_sums(supp_mater_ps_all_filtd))
+max_read_depth # 127,180 reads
+avg_read_depth <- sum(otu_table(supp_mater_ps_all_filtd))/nsamples(supp_mater_ps_all_filtd)
+avg_read_depth # 52,342 reads/sample
+```
+
+Filtering out samples which have < 10,000 total reads :
+
+```{r, echo=TRUE}
+supp_mater_complete_ps <- prune_samples(sample_sums(supp_mater_ps_all_filtd) > 10000, supp_mater_ps_all_filtd)
+supp_mater_complete_ps  # 358 samples remain
+
+# Save as an R serial object for use in future analyses
+saveRDS(supp_mater_complete_ps, "supp_mater_complete_ps.rds")
+```
+
+
+##**Performing comparisons between HMA mice and HMA piglets for second INF donor**##
+
+```{r, echo=TRUE}
+supp_mater_INF_ps <- subset_samples(supp_mater_complete_ps, Donor == 'infant')
+supp_mater_INF_ps
+
+# removing sample '193' which is an unused inoculum
+supp_mater_INF_ps <- subset_samples(supp_mater_INF_ps, SampleID != '193')
+supp_mater_INF_ps
+
+# transforming samples counts prior to carrying out performing ordination
+supp_mater_INF_ps.prop <- transform_sample_counts(supp_mater_INF_ps, function(x){x/sum(x)})
+supp_mater_INF_ps.prop
+
+# removing piglet samples on milk diet
+supp_mater_INF_no_milk_ps.prop <- subset_samples(supp_mater_INF_ps.prop, Diet != 'milk' | is.na(Diet))
+supp_mater_INF_no_milk_ps.prop
+
+# PCoA plotting using unweighted unifrac distances
+unw_ord_INF <- ordinate(supp_mater_INF_no_milk_ps.prop, method = "PCoA", distance = "unifrac", weighted = F)
+unwunifrac_INF_supp <- plot_ordination(supp_mater_INF_no_milk_ps.prop, unw_ord_INF, color = "Species") + ggtitle("Infant donor PCoA plot - unweighted unifrac") + theme(plot.title = element_text(hjust = 0.5)) 
+unwunifrac_INF_supp
+
+# plotting using Bray-Curtis distances
+bray_ord_INF <- ordinate(supp_mater_INF_no_milk_ps.prop, method="PCoA", distance = "bray")
+bray_pcoa_INF_supp <- plot_ordination(supp_mater_INF_no_milk_ps.prop, bray_ord_INF, color="Species") + ggtitle("Infant donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5))
+bray_pcoa_INF_supp
+```
+
+
+Let's look at donor taxa that are found in all four donor inocula (core ASVs for INF donor)
+
+```{r, echo=TRUE}
+supp_mater_INF_DONORS_ps <- subset_samples(supp_mater_INF_ps, Species == 'human')
+supp_mater_INF_DONORS_ps
+sample_names(supp_mater_INF_DONORS_ps)
+
+# Calculating prevalence to determine which ASVs are found in all 4 donor inocula
+prevdf_INF_supp_donors = apply(X = otu_table(supp_mater_INF_DONORS_ps),
+               MARGIN = ifelse(taxa_are_rows(supp_mater_INF_DONORS_ps), yes = 1, no = 2),
+               FUN = function(x){sum(x > 0)})
+prevdf_INF_supp_donors = data.frame(Prevalence=prevdf_INF_supp_donors, TotalAbundance=taxa_sums(supp_mater_INF_DONORS_ps))
+View(prevdf_INF_supp_donors)
+
+core_threshold = nsamples(supp_mater_INF_DONORS_ps) # set threshold for the number of samples in which the ASV needs to be present in order for it to be considered as part of the core
+core_INF_supp_donors_taxa <- rownames(prevdf_INF_supp_donors)[prevdf_INF_supp_donors$Prevalence == core_threshold]
+core_INF_supp_donors_taxa # 20 core ASVs identified that were detected in all 4 donor inocula
+
+supp_mater_INF_DONORS_core_ps <- prune_taxa(core_INF_supp_donors_taxa, supp_mater_INF_DONORS_ps)
+supp_mater_INF_DONORS_core_ps
+sum(otu_table(supp_mater_INF_DONORS_core_ps))/sum(otu_table(supp_mater_INF_DONORS_ps)) # the 20 core ASVs account for ~95.4% of donor reads
+```
+
+Let's see how the establishment of core INF ASVs compare among the two animal models :
+
+```{r, echo=TRUE}
+supp_mater_INF_ps.prop
+
+# Retaining only the core INF ASVs
+supp_mater_INF_core_ps.prop <- prune_taxa(core_INF_supp_donors_taxa, supp_mater_INF_ps.prop)
+supp_mater_INF_core_ps.prop
+
+# PCoA plotting using unweighted unifrac distances
+unw_ord_INF_core <- ordinate(supp_mater_INF_core_ps.prop, method = "PCoA", distance = "unifrac", weighted = F)
+unwunifrac_INF_supp_core <- plot_ordination(supp_mater_INF_core_ps.prop, unw_ord_INF_core, color = "Species", shape = "Species") + ggtitle("Infant donor core PCoA plot - unweighted unifrac") + theme(plot.title = element_text(hjust = 0.5)) + labs(colour = " ", shape = "host species")
+unwunifrac_INF_supp_core 
+
+# plotting using Bray-Curtis distances
+bray_ord_INF_core <- ordinate(supp_mater_INF_core_ps.prop, method="PCoA", distance = "bray")
+bray_pcoa_INF_supp_core <- plot_ordination(supp_mater_INF_core_ps.prop, bray_ord_INF_core, color="Species", shape = "Species") + ggtitle("Infant donor core PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5)) + labs(colour = " ", shape = "host species")
+bray_pcoa_INF_supp_core
+```
+
+
+
+##**Looking at taxa establishment for CHLD, ADLT, and SNR donors in the HMA mice**##
+
+
+**CHLD (supp mater) donor**
+
+```{r, echo=TRUE}
+supp_mater_CHLD_ps <- subset_samples(supp_mater_complete_ps, Donor == 'child')
+supp_mater_CHLD_ps
+
+# for mice
+samples_used_to_inoculate_mice <- c('61', '157') 
+human_donors_CHLD_supp_inocula_for_mice_ps <- subset_samples(supp_mater_CHLD_ps, SampleID %in% samples_used_to_inoculate_mice)
+human_donors_CHLD_supp_inocula_for_mice_ps # only retains the inocula used for mice
+avg_num_of_reads_CHLD_supp_mouse_donors <- sum(otu_table(human_donors_CHLD_supp_inocula_for_mice_ps))/2
+avg_num_of_reads_CHLD_supp_mouse_donors # 16,744 reads/sample
+
+# Determining taxa prevalence
+prevdf_CHLD_supp_mice_inocula = apply(X = otu_table(human_donors_CHLD_supp_inocula_for_mice_ps),
+               MARGIN = ifelse(taxa_are_rows(human_donors_CHLD_supp_inocula_for_mice_ps), yes = 1, no = 2),
+               FUN = function(x){sum(x > 0)})
+prevdf_CHLD_supp_mice_inocula = data.frame(Prevalence=prevdf_CHLD_supp_mice_inocula, TotalAbundance=taxa_sums(human_donors_CHLD_supp_inocula_for_mice_ps))
+View(prevdf_CHLD_supp_mice_inocula)
+
+all_CHLD_supp_donor_taxa_mice <- rownames(prevdf_CHLD_supp_mice_inocula)[prevdf_CHLD_supp_mice_inocula$Prevalence >= 1]
+all_CHLD_supp_donor_taxa_mice # 175 ASVs found in the donor inocula
+
+# Let's see how the donor taxa have established in the mice
+CHLD_supp_HMA_mice_ps <- subset_samples(supp_mater_CHLD_ps, Species == 'mouse') # keeping just the mouse samples
+CHLD_supp_HMA_mice_ps
+avg_num_of_reads_CHLD_supp_mice <- sum(otu_table(CHLD_supp_HMA_mice_ps))/nsamples(CHLD_supp_HMA_mice_ps)
+avg_num_of_reads_CHLD_supp_mice # 54,621 reads/sample
+
+CHLD_supp_HMA_mice_donor_taxa_ps <- prune_taxa(all_CHLD_supp_donor_taxa_mice, CHLD_supp_HMA_mice_ps) # retaining only the ASVs that were found in the donor inoculae
+CHLD_supp_HMA_mice_donor_taxa_ps
+
+# Calculating the percentage of the total HMA mouse reads that is represented by these 175 donor ASVs
+sum(otu_table(CHLD_supp_HMA_mice_donor_taxa_ps))/sum(otu_table(CHLD_supp_HMA_mice_ps)) # ~78.2% of reads originating from donor ASVs
+
+# Checking how many of the 175 CHLD supp donor ASVs were detected in at least one of the mouse samples
+prevdf_CHLD_supp_donor_taxa_detect_mice <- makePrevDF(CHLD_supp_HMA_mice_donor_taxa_ps, 1)
+prevdf_CHLD_supp_donor_taxa_detect_mice_table <- as.data.frame(prevdf_CHLD_supp_donor_taxa_detect_mice[1])
+View(prevdf_CHLD_supp_donor_taxa_detect_mice_table)
+colonized_prevdf_CHLD_supp_donor_mice <- prevdf_CHLD_supp_donor_taxa_detect_mice_table[prevdf_CHLD_supp_donor_taxa_detect_mice_table$Prevalence >= '1',]
+View(colonized_prevdf_CHLD_supp_donor_mice)
+all_CHLD_supp_taxa_colonizing_mice <-prevdf_CHLD_supp_donor_taxa_detect_mice[2]
+all_CHLD_supp_taxa_colonizing_mice <- unlist(all_CHLD_supp_taxa_colonizing_mice) # need to 'unlist' in order to use in the 'prune_taxa' function below
+all_CHLD_supp_taxa_colonizing_mice # 103 of the 175 CHLD supp donor ASVs have colonized the mice
+
+# split by description to get weekly .....
+# Prevalence of ASVs at 48 HRS
+CHLD_supp_HMA_mice_donor_taxa_ps
+CHLD_supp_HMA_mice_ps_48HRS <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '2_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_48HRS
+
+prevdf_48HRS <- makePrevDF(CHLD_supp_HMA_mice_ps_48HRS,6) 
+prevdf_48HRS_table <- as.data.frame(prevdf_48HRS[1])
+colonized_prevdf_48HRS <- prevdf_48HRS_table[prevdf_48HRS_table$Prevalence >= '6',]
+colonized_prevdf_48HRS$ASV_ID <- rownames(colonized_prevdf_48HRS)
+colonized_prevdf_48HRS <- colonized_prevdf_48HRS[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_48HRS)))
+str(tp_list)
+colonized_prevdf_48HRS_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_48HRS), Two_days =  tp_list)
+dim(colonized_prevdf_48HRS_relv)
+View(colonized_prevdf_48HRS_relv)
+
+# Prevalence of ASVs at 1 week
+CHLD_supp_HMA_mice_ps_1week <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '7_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_1week
+
+prevdf_1week <- makePrevDF(CHLD_supp_HMA_mice_ps_1week,6)
+prevdf_1week_table <- as.data.frame(prevdf_1week[1])
+colonized_prevdf_1week <- prevdf_1week_table[prevdf_1week_table$Prevalence >= '6',]
+colonized_prevdf_1week$ASV_ID <- rownames(colonized_prevdf_1week)
+colonized_prevdf_1week <- colonized_prevdf_1week[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_1week))) # make a list which has '1' which can then be used as a column to indicate 'presence'
+colonized_prevdf_1week_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_1week), Week_1 =  tp_list)
+dim(colonized_prevdf_1week_relv)
+View(colonized_prevdf_1week_relv)
+
+# Prevalence of ASVs at 2 weeks
+CHLD_supp_HMA_mice_ps_2weeks <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '14_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_2weeks
+
+prevdf_2weeks <- makePrevDF(CHLD_supp_HMA_mice_ps_2weeks,6)
+prevdf_2weeks_table <- as.data.frame(prevdf_2weeks[1])
+colonized_prevdf_2weeks <- prevdf_2weeks_table[prevdf_2weeks_table$Prevalence >= '6',]
+colonized_prevdf_2weeks$ASV_ID <- rownames(colonized_prevdf_2weeks)
+colonized_prevdf_2weeks <- colonized_prevdf_2weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_2weeks)))
+colonized_prevdf_2weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_2weeks), Week_2 =  tp_list)
+dim(colonized_prevdf_2weeks_relv)
+View(colonized_prevdf_2weeks_relv)
+
+# Prevalence of ASVs at 3 weeks
+CHLD_supp_HMA_mice_ps_3weeks <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '21_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_3weeks
+
+prevdf_3weeks <- makePrevDF(CHLD_supp_HMA_mice_ps_3weeks,5)
+prevdf_3weeks_table <- as.data.frame(prevdf_3weeks[1])
+colonized_prevdf_3weeks <- prevdf_3weeks_table[prevdf_3weeks_table$Prevalence >= '5',]
+colonized_prevdf_3weeks$ASV_ID <- rownames(colonized_prevdf_3weeks)
+colonized_prevdf_3weeks <- colonized_prevdf_3weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_3weeks)))
+colonized_prevdf_3weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_3weeks), Week_3 =  tp_list)
+dim(colonized_prevdf_3weeks_relv)
+View(colonized_prevdf_3weeks_relv)
+
+# Prevalence of ASVs at 4 weeks
+CHLD_supp_HMA_mice_ps_4weeks <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '28_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_4weeks
+
+prevdf_4weeks <- makePrevDF(CHLD_supp_HMA_mice_ps_4weeks,6)
+prevdf_4weeks_table <- as.data.frame(prevdf_4weeks[1])
+colonized_prevdf_4weeks <- prevdf_4weeks_table[prevdf_4weeks_table$Prevalence >= '6',]
+colonized_prevdf_4weeks$ASV_ID <- rownames(colonized_prevdf_4weeks)
+colonized_prevdf_4weeks <- colonized_prevdf_4weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_4weeks)))
+colonized_prevdf_4weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_4weeks), Week_4 =  tp_list)
+dim(colonized_prevdf_4weeks_relv)
+View(colonized_prevdf_4weeks_relv)
+
+# Prevalence of ASVs at 5 weeks
+CHLD_supp_HMA_mice_ps_5weeks <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == '35_days_post_inoculation')
+CHLD_supp_HMA_mice_ps_5weeks
+
+prevdf_5weeks <- makePrevDF(CHLD_supp_HMA_mice_ps_5weeks,5)
+prevdf_5weeks_table <- as.data.frame(prevdf_5weeks[1])
+colonized_prevdf_5weeks <- prevdf_5weeks_table[prevdf_5weeks_table$Prevalence >= '5',]
+colonized_prevdf_5weeks$ASV_ID <- rownames(colonized_prevdf_5weeks)
+colonized_prevdf_5weeks <- colonized_prevdf_5weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_5weeks)))
+colonized_prevdf_5weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_5weeks), Week_5 =  tp_list)
+dim(colonized_prevdf_5weeks_relv)
+View(colonized_prevdf_5weeks_relv)
+
+# Prevalence of ASVs at 40 days
+CHLD_supp_HMA_mice_ps_40days <- subset_samples(CHLD_supp_HMA_mice_donor_taxa_ps, Description == 'final fecal collection')
+CHLD_supp_HMA_mice_ps_40days
+
+prevdf_40days <- makePrevDF(CHLD_supp_HMA_mice_ps_40days,5)
+prevdf_40days_table <- as.data.frame(prevdf_40days[1])
+colonized_prevdf_40days <- prevdf_40days_table[prevdf_40days_table$Prevalence >= '5',]
+colonized_prevdf_40days$ASV_ID <- rownames(colonized_prevdf_40days)
+colonized_prevdf_40days <- colonized_prevdf_40days[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_40days)))
+colonized_prevdf_40days_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_40days), final_collection =  tp_list)
+dim(colonized_prevdf_40days_relv)
+View(colonized_prevdf_40days_relv)
+
+merged_prev_df_CHLD_supp_mice <- Reduce(function(x, y) merge(x, y, all=TRUE), list(colonized_prevdf_48HRS_relv, colonized_prevdf_1week_relv, colonized_prevdf_2weeks_relv, colonized_prevdf_3weeks_relv, colonized_prevdf_4weeks_relv, colonized_prevdf_5weeks_relv, colonized_prevdf_40days_relv))
+str(merged_prev_df_CHLD_supp_mice) # All columns considered factors
+merged_prev_df_CHLD_supp_mice[2:8] <- lapply(merged_prev_df_CHLD_supp_mice[2:8], as.numeric) # need to convert columns 2-9 to numeric in order to do 'rowSums'
+str(merged_prev_df_CHLD_supp_mice)
+View(merged_prev_df_CHLD_supp_mice)
+
+merged_prev_df_CHLD_supp_mice[is.na(merged_prev_df_CHLD_supp_mice)] <- 0 # Have to replace 'NA' (missing data) with '0' in order for 'rowSums' to work properly
+merged_prev_df_CHLD_supp_mice$total <- rowSums(merged_prev_df_CHLD_supp_mice[2:8]) # add the values in the rows and use them to populate a new column called 'total'
+View(merged_prev_df_CHLD_supp_mice)
+merged_prev_df_CHLD_supp_mice$ASV_ID <- as.character(as.factor(merged_prev_df_CHLD_supp_mice$ASV_ID)) # convert 'ASV_ID' column to a character vector
+str(merged_prev_df_CHLD_supp_mice)
+write.table(merged_prev_df_CHLD_supp_mice, "merged_prev_df_CHLD_supp_mice.txt", sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE)
+
+# persistent colonizers defined as taxa detected in all >= 4 time points
+perst_colonizing_taxa_CHLD_supp_mice_df <- subset(merged_prev_df_CHLD_supp_mice, total >= '4') # select the ASVs which were detected in at least 4 time points
+View(perst_colonizing_taxa_CHLD_supp_mice_df)
+perst_colonizing_taxa_CHLD_supp_mice <- perst_colonizing_taxa_CHLD_supp_mice_df[,1]
+perst_colonizing_taxa_CHLD_supp_mice # 28 ASVs persistently colonizing mice
+```
+
+
+**ADLT (supp mater) donor**
+
+```{r, echo=TRUE}
+supp_mater_ADLT_ps <- subset_samples(supp_mater_complete_ps, Donor == 'adult')
+supp_mater_ADLT_ps
+
+# for mice
+samples_used_to_inoculate_mice <- c('73', '169') 
+human_donors_ADLT_supp_inocula_for_mice_ps <- subset_samples(supp_mater_ADLT_ps, SampleID %in% samples_used_to_inoculate_mice)
+human_donors_ADLT_supp_inocula_for_mice_ps # only retains the inocula used for mice
+avg_num_of_reads_ADLT_supp_mouse_donors <- sum(otu_table(human_donors_ADLT_supp_inocula_for_mice_ps))/2
+avg_num_of_reads_ADLT_supp_mouse_donors # 39,962 reads/sample
+
+# Determining taxa prevalence
+prevdf_ADLT_supp_mice_inocula = apply(X = otu_table(human_donors_ADLT_supp_inocula_for_mice_ps),
+               MARGIN = ifelse(taxa_are_rows(human_donors_ADLT_supp_inocula_for_mice_ps), yes = 1, no = 2),
+               FUN = function(x){sum(x > 0)})
+prevdf_ADLT_supp_mice_inocula = data.frame(Prevalence=prevdf_ADLT_supp_mice_inocula, TotalAbundance=taxa_sums(human_donors_ADLT_supp_inocula_for_mice_ps))
+View(prevdf_ADLT_supp_mice_inocula)
+
+all_ADLT_supp_donor_taxa_mice <- rownames(prevdf_ADLT_supp_mice_inocula)[prevdf_ADLT_supp_mice_inocula$Prevalence >= 1]
+all_ADLT_supp_donor_taxa_mice # 187 ASVs found in the donor inocula
+
+# Let's see how the donor taxa have established in the mice
+ADLT_supp_HMA_mice_ps <- subset_samples(supp_mater_ADLT_ps, Species == 'mouse') # keeping just the mouse samples
+ADLT_supp_HMA_mice_ps
+avg_num_of_reads_ADLT_supp_mice <- sum(otu_table(ADLT_supp_HMA_mice_ps))/nsamples(ADLT_supp_HMA_mice_ps)
+avg_num_of_reads_ADLT_supp_mice # 58,610 reads/sample
+
+ADLT_supp_HMA_mice_donor_taxa_ps <- prune_taxa(all_ADLT_supp_donor_taxa_mice, ADLT_supp_HMA_mice_ps) # retaining only the ASVs that were found in the donor inoculae
+ADLT_supp_HMA_mice_donor_taxa_ps
+
+# Calculating the percentage of the total HMA mouse reads that is represented by these 187 donor ASVs
+sum(otu_table(ADLT_supp_HMA_mice_donor_taxa_ps))/sum(otu_table(ADLT_supp_HMA_mice_ps)) # ~78.9% of reads originating from donor ASVs
+
+# Checking how many of the 187 ADLT supp donor ASVs were detected in at least one of the mouse samples
+prevdf_ADLT_supp_donor_taxa_detect_mice <- makePrevDF(ADLT_supp_HMA_mice_donor_taxa_ps, 1)
+prevdf_ADLT_supp_donor_taxa_detect_mice_table <- as.data.frame(prevdf_ADLT_supp_donor_taxa_detect_mice[1])
+View(prevdf_ADLT_supp_donor_taxa_detect_mice_table)
+colonized_prevdf_ADLT_supp_donor_mice <- prevdf_ADLT_supp_donor_taxa_detect_mice_table[prevdf_ADLT_supp_donor_taxa_detect_mice_table$Prevalence >= '1',]
+View(colonized_prevdf_ADLT_supp_donor_mice)
+all_ADLT_supp_taxa_colonizing_mice <-prevdf_ADLT_supp_donor_taxa_detect_mice[2]
+all_ADLT_supp_taxa_colonizing_mice <- unlist(all_ADLT_supp_taxa_colonizing_mice) # need to 'unlist' in order to use in the 'prune_taxa' function below
+all_ADLT_supp_taxa_colonizing_mice # 123 of the 187 ADLT supp donor ASVs have colonized the mice
+
+# split by description to get weekly .....
+# Prevalence of ASVs at 48 HRS
+ADLT_supp_HMA_mice_donor_taxa_ps
+ADLT_supp_HMA_mice_ps_48HRS <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '2_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_48HRS
+
+prevdf_48HRS <- makePrevDF(ADLT_supp_HMA_mice_ps_48HRS,6) 
+prevdf_48HRS_table <- as.data.frame(prevdf_48HRS[1])
+colonized_prevdf_48HRS <- prevdf_48HRS_table[prevdf_48HRS_table$Prevalence >= '6',]
+colonized_prevdf_48HRS$ASV_ID <- rownames(colonized_prevdf_48HRS)
+colonized_prevdf_48HRS <- colonized_prevdf_48HRS[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_48HRS)))
+str(tp_list)
+colonized_prevdf_48HRS_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_48HRS), Two_days =  tp_list)
+dim(colonized_prevdf_48HRS_relv)
+View(colonized_prevdf_48HRS_relv)
+
+# Prevalence of ASVs at 1 week
+ADLT_supp_HMA_mice_ps_1week <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '7_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_1week
+
+prevdf_1week <- makePrevDF(ADLT_supp_HMA_mice_ps_1week,6)
+prevdf_1week_table <- as.data.frame(prevdf_1week[1])
+colonized_prevdf_1week <- prevdf_1week_table[prevdf_1week_table$Prevalence >= '6',]
+colonized_prevdf_1week$ASV_ID <- rownames(colonized_prevdf_1week)
+colonized_prevdf_1week <- colonized_prevdf_1week[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_1week))) # make a list which has '1' which can then be used as a column to indicate 'presence'
+colonized_prevdf_1week_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_1week), Week_1 =  tp_list)
+dim(colonized_prevdf_1week_relv)
+View(colonized_prevdf_1week_relv)
+
+# Prevalence of ASVs at 2 weeks
+ADLT_supp_HMA_mice_ps_2weeks <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '14_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_2weeks
+
+prevdf_2weeks <- makePrevDF(ADLT_supp_HMA_mice_ps_2weeks,6)
+prevdf_2weeks_table <- as.data.frame(prevdf_2weeks[1])
+colonized_prevdf_2weeks <- prevdf_2weeks_table[prevdf_2weeks_table$Prevalence >= '6',]
+colonized_prevdf_2weeks$ASV_ID <- rownames(colonized_prevdf_2weeks)
+colonized_prevdf_2weeks <- colonized_prevdf_2weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_2weeks)))
+colonized_prevdf_2weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_2weeks), Week_2 =  tp_list)
+dim(colonized_prevdf_2weeks_relv)
+View(colonized_prevdf_2weeks_relv)
+
+# Prevalence of ASVs at 3 weeks
+ADLT_supp_HMA_mice_ps_3weeks <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '21_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_3weeks
+
+prevdf_3weeks <- makePrevDF(ADLT_supp_HMA_mice_ps_3weeks,5)
+prevdf_3weeks_table <- as.data.frame(prevdf_3weeks[1])
+colonized_prevdf_3weeks <- prevdf_3weeks_table[prevdf_3weeks_table$Prevalence >= '5',]
+colonized_prevdf_3weeks$ASV_ID <- rownames(colonized_prevdf_3weeks)
+colonized_prevdf_3weeks <- colonized_prevdf_3weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_3weeks)))
+colonized_prevdf_3weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_3weeks), Week_3 =  tp_list)
+dim(colonized_prevdf_3weeks_relv)
+View(colonized_prevdf_3weeks_relv)
+
+# Prevalence of ASVs at 4 weeks
+ADLT_supp_HMA_mice_ps_4weeks <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '28_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_4weeks
+
+prevdf_4weeks <- makePrevDF(ADLT_supp_HMA_mice_ps_4weeks,5)
+prevdf_4weeks_table <- as.data.frame(prevdf_4weeks[1])
+colonized_prevdf_4weeks <- prevdf_4weeks_table[prevdf_4weeks_table$Prevalence >= '5',]
+colonized_prevdf_4weeks$ASV_ID <- rownames(colonized_prevdf_4weeks)
+colonized_prevdf_4weeks <- colonized_prevdf_4weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_4weeks)))
+colonized_prevdf_4weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_4weeks), Week_4 =  tp_list)
+dim(colonized_prevdf_4weeks_relv)
+View(colonized_prevdf_4weeks_relv)
+
+# Prevalence of ASVs at 5 weeks
+ADLT_supp_HMA_mice_ps_5weeks <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == '35_days_post_inoculation')
+ADLT_supp_HMA_mice_ps_5weeks
+
+prevdf_5weeks <- makePrevDF(ADLT_supp_HMA_mice_ps_5weeks,5)
+prevdf_5weeks_table <- as.data.frame(prevdf_5weeks[1])
+colonized_prevdf_5weeks <- prevdf_5weeks_table[prevdf_5weeks_table$Prevalence >= '5',]
+colonized_prevdf_5weeks$ASV_ID <- rownames(colonized_prevdf_5weeks)
+colonized_prevdf_5weeks <- colonized_prevdf_5weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_5weeks)))
+colonized_prevdf_5weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_5weeks), Week_5 =  tp_list)
+dim(colonized_prevdf_5weeks_relv)
+View(colonized_prevdf_5weeks_relv)
+
+# Prevalence of ASVs at 40 days
+ADLT_supp_HMA_mice_ps_40days <- subset_samples(ADLT_supp_HMA_mice_donor_taxa_ps, Description == 'final fecal collection')
+ADLT_supp_HMA_mice_ps_40days
+
+prevdf_40days <- makePrevDF(ADLT_supp_HMA_mice_ps_40days,5)
+prevdf_40days_table <- as.data.frame(prevdf_40days[1])
+colonized_prevdf_40days <- prevdf_40days_table[prevdf_40days_table$Prevalence >= '5',]
+colonized_prevdf_40days$ASV_ID <- rownames(colonized_prevdf_40days)
+colonized_prevdf_40days <- colonized_prevdf_40days[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_40days)))
+colonized_prevdf_40days_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_40days), final_collection =  tp_list)
+dim(colonized_prevdf_40days_relv)
+View(colonized_prevdf_40days_relv)
+
+merged_prev_df_ADLT_supp_mice <- Reduce(function(x, y) merge(x, y, all=TRUE), list(colonized_prevdf_48HRS_relv, colonized_prevdf_1week_relv, colonized_prevdf_2weeks_relv, colonized_prevdf_3weeks_relv, colonized_prevdf_4weeks_relv, colonized_prevdf_5weeks_relv, colonized_prevdf_40days_relv))
+str(merged_prev_df_ADLT_supp_mice) # All columns considered factors
+merged_prev_df_ADLT_supp_mice[2:8] <- lapply(merged_prev_df_ADLT_supp_mice[2:8], as.numeric) # need to convert columns 2-9 to numeric in order to do 'rowSums'
+str(merged_prev_df_ADLT_supp_mice)
+View(merged_prev_df_ADLT_supp_mice)
+
+merged_prev_df_ADLT_supp_mice[is.na(merged_prev_df_ADLT_supp_mice)] <- 0 # Have to replace 'NA' (missing data) with '0' in order for 'rowSums' to work properly
+merged_prev_df_ADLT_supp_mice$total <- rowSums(merged_prev_df_ADLT_supp_mice[2:8]) # add the values in the rows and use them to populate a new column called 'total'
+View(merged_prev_df_ADLT_supp_mice)
+merged_prev_df_ADLT_supp_mice$ASV_ID <- as.character(as.factor(merged_prev_df_ADLT_supp_mice$ASV_ID)) # convert 'ASV_ID' column to a character vector
+str(merged_prev_df_ADLT_supp_mice)
+write.table(merged_prev_df_ADLT_supp_mice, "merged_prev_df_ADLT_supp_mice.txt", sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE)
+
+# persistent colonizers defined as taxa detected in all >= 4 time points
+perst_colonizing_taxa_ADLT_supp_mice_df <- subset(merged_prev_df_ADLT_supp_mice, total >= '4') # select the ASVs which were detected in at least 4 time points
+View(perst_colonizing_taxa_ADLT_supp_mice_df)
+perst_colonizing_taxa_ADLT_supp_mice <- perst_colonizing_taxa_ADLT_supp_mice_df[,1]
+perst_colonizing_taxa_ADLT_supp_mice # 51 ASVs persistently colonizing mice
+```
+
+
+**SNR (supp mater) donor**
+
+```{r, echo=TRUE}
+supp_mater_SNR_ps <- subset_samples(supp_mater_complete_ps, Donor == 'elderly')
+supp_mater_SNR_ps
+
+# for mice
+samples_used_to_inoculate_mice <- c('85', '181') 
+human_donors_SNR_supp_inocula_for_mice_ps <- subset_samples(supp_mater_SNR_ps, SampleID %in% samples_used_to_inoculate_mice)
+human_donors_SNR_supp_inocula_for_mice_ps # only retains the inocula used for mice
+avg_num_of_reads_SNR_supp_mouse_donors <- sum(otu_table(human_donors_SNR_supp_inocula_for_mice_ps))/2
+avg_num_of_reads_SNR_supp_mouse_donors # 42,952 reads/sample
+
+# Determining taxa prevalence
+prevdf_SNR_supp_mice_inocula = apply(X = otu_table(human_donors_SNR_supp_inocula_for_mice_ps),
+               MARGIN = ifelse(taxa_are_rows(human_donors_SNR_supp_inocula_for_mice_ps), yes = 1, no = 2),
+               FUN = function(x){sum(x > 0)})
+prevdf_SNR_supp_mice_inocula = data.frame(Prevalence=prevdf_SNR_supp_mice_inocula, TotalAbundance=taxa_sums(human_donors_SNR_supp_inocula_for_mice_ps))
+View(prevdf_SNR_supp_mice_inocula)
+
+all_SNR_supp_donor_taxa_mice <- rownames(prevdf_SNR_supp_mice_inocula)[prevdf_SNR_supp_mice_inocula$Prevalence >= 1]
+all_SNR_supp_donor_taxa_mice # 259 ASVs found in the donor inocula
+
+# Let's see how the donor taxa have established in the mice
+SNR_supp_HMA_mice_ps <- subset_samples(supp_mater_SNR_ps, Species == 'mouse') # keeping just the mouse samples
+SNR_supp_HMA_mice_ps
+avg_num_of_reads_SNR_supp_mice <- sum(otu_table(SNR_supp_HMA_mice_ps))/nsamples(SNR_supp_HMA_mice_ps)
+avg_num_of_reads_SNR_supp_mice # 53,741 reads/sample
+
+SNR_supp_HMA_mice_donor_taxa_ps <- prune_taxa(all_SNR_supp_donor_taxa_mice, SNR_supp_HMA_mice_ps) # retaining only the ASVs that were found in the donor inoculae
+SNR_supp_HMA_mice_donor_taxa_ps
+
+# Calculating the percentage of the total HMA mouse reads that is represented by these 259 donor ASVs
+sum(otu_table(SNR_supp_HMA_mice_donor_taxa_ps))/sum(otu_table(SNR_supp_HMA_mice_ps)) # ~73.5% of reads originating from donor ASVs
+
+# Checking how many of the 259 SNR supp donor ASVs were detected in at least one of the mouse samples
+prevdf_SNR_supp_donor_taxa_detect_mice <- makePrevDF(SNR_supp_HMA_mice_donor_taxa_ps, 1)
+prevdf_SNR_supp_donor_taxa_detect_mice_table <- as.data.frame(prevdf_SNR_supp_donor_taxa_detect_mice[1])
+View(prevdf_SNR_supp_donor_taxa_detect_mice_table)
+colonized_prevdf_SNR_supp_donor_mice <- prevdf_SNR_supp_donor_taxa_detect_mice_table[prevdf_SNR_supp_donor_taxa_detect_mice_table$Prevalence >= '1',]
+View(colonized_prevdf_SNR_supp_donor_mice)
+all_SNR_supp_taxa_colonizing_mice <-prevdf_SNR_supp_donor_taxa_detect_mice[2]
+all_SNR_supp_taxa_colonizing_mice <- unlist(all_SNR_supp_taxa_colonizing_mice) # need to 'unlist' in order to use in the 'prune_taxa' function below
+all_SNR_supp_taxa_colonizing_mice # 112 of the 259 SNR supp donor ASVs have colonized the mice
+
+# split by description to get weekly .....
+# Prevalence of ASVs at 48 HRS
+SNR_supp_HMA_mice_donor_taxa_ps
+SNR_supp_HMA_mice_ps_48HRS <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '2_days_post_inoculation')
+SNR_supp_HMA_mice_ps_48HRS
+
+prevdf_48HRS <- makePrevDF(SNR_supp_HMA_mice_ps_48HRS,4) 
+prevdf_48HRS_table <- as.data.frame(prevdf_48HRS[1])
+colonized_prevdf_48HRS <- prevdf_48HRS_table[prevdf_48HRS_table$Prevalence >= '4',]
+colonized_prevdf_48HRS$ASV_ID <- rownames(colonized_prevdf_48HRS)
+colonized_prevdf_48HRS <- colonized_prevdf_48HRS[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_48HRS)))
+str(tp_list)
+colonized_prevdf_48HRS_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_48HRS), Two_days =  tp_list)
+dim(colonized_prevdf_48HRS_relv)
+View(colonized_prevdf_48HRS_relv)
+
+# Prevalence of ASVs at 1 week
+SNR_supp_HMA_mice_ps_1week <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '7_days_post_inoculation')
+SNR_supp_HMA_mice_ps_1week
+
+prevdf_1week <- makePrevDF(SNR_supp_HMA_mice_ps_1week,6)
+prevdf_1week_table <- as.data.frame(prevdf_1week[1])
+colonized_prevdf_1week <- prevdf_1week_table[prevdf_1week_table$Prevalence >= '6',]
+colonized_prevdf_1week$ASV_ID <- rownames(colonized_prevdf_1week)
+colonized_prevdf_1week <- colonized_prevdf_1week[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_1week))) # make a list which has '1' which can then be used as a column to indicate 'presence'
+colonized_prevdf_1week_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_1week), Week_1 =  tp_list)
+dim(colonized_prevdf_1week_relv)
+View(colonized_prevdf_1week_relv)
+
+# Prevalence of ASVs at 2 weeks
+SNR_supp_HMA_mice_ps_2weeks <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '14_days_post_inoculation')
+SNR_supp_HMA_mice_ps_2weeks
+
+prevdf_2weeks <- makePrevDF(SNR_supp_HMA_mice_ps_2weeks,6)
+prevdf_2weeks_table <- as.data.frame(prevdf_2weeks[1])
+colonized_prevdf_2weeks <- prevdf_2weeks_table[prevdf_2weeks_table$Prevalence >= '6',]
+colonized_prevdf_2weeks$ASV_ID <- rownames(colonized_prevdf_2weeks)
+colonized_prevdf_2weeks <- colonized_prevdf_2weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_2weeks)))
+colonized_prevdf_2weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_2weeks), Week_2 =  tp_list)
+dim(colonized_prevdf_2weeks_relv)
+View(colonized_prevdf_2weeks_relv)
+
+# Prevalence of ASVs at 3 weeks
+SNR_supp_HMA_mice_ps_3weeks <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '21_days_post_inoculation')
+SNR_supp_HMA_mice_ps_3weeks
+
+prevdf_3weeks <- makePrevDF(SNR_supp_HMA_mice_ps_3weeks,6)
+prevdf_3weeks_table <- as.data.frame(prevdf_3weeks[1])
+colonized_prevdf_3weeks <- prevdf_3weeks_table[prevdf_3weeks_table$Prevalence >= '6',]
+colonized_prevdf_3weeks$ASV_ID <- rownames(colonized_prevdf_3weeks)
+colonized_prevdf_3weeks <- colonized_prevdf_3weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_3weeks)))
+colonized_prevdf_3weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_3weeks), Week_3 =  tp_list)
+dim(colonized_prevdf_3weeks_relv)
+View(colonized_prevdf_3weeks_relv)
+
+# Prevalence of ASVs at 4 weeks
+SNR_supp_HMA_mice_ps_4weeks <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '28_days_post_inoculation')
+SNR_supp_HMA_mice_ps_4weeks
+
+prevdf_4weeks <- makePrevDF(SNR_supp_HMA_mice_ps_4weeks,6)
+prevdf_4weeks_table <- as.data.frame(prevdf_4weeks[1])
+colonized_prevdf_4weeks <- prevdf_4weeks_table[prevdf_4weeks_table$Prevalence >= '6',]
+colonized_prevdf_4weeks$ASV_ID <- rownames(colonized_prevdf_4weeks)
+colonized_prevdf_4weeks <- colonized_prevdf_4weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_4weeks)))
+colonized_prevdf_4weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_4weeks), Week_4 =  tp_list)
+dim(colonized_prevdf_4weeks_relv)
+View(colonized_prevdf_4weeks_relv)
+
+# Prevalence of ASVs at 5 weeks
+SNR_supp_HMA_mice_ps_5weeks <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == '35_days_post_inoculation')
+SNR_supp_HMA_mice_ps_5weeks
+
+prevdf_5weeks <- makePrevDF(SNR_supp_HMA_mice_ps_5weeks,5)
+prevdf_5weeks_table <- as.data.frame(prevdf_5weeks[1])
+colonized_prevdf_5weeks <- prevdf_5weeks_table[prevdf_5weeks_table$Prevalence >= '5',]
+colonized_prevdf_5weeks$ASV_ID <- rownames(colonized_prevdf_5weeks)
+colonized_prevdf_5weeks <- colonized_prevdf_5weeks[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_5weeks)))
+colonized_prevdf_5weeks_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_5weeks), Week_5 =  tp_list)
+dim(colonized_prevdf_5weeks_relv)
+View(colonized_prevdf_5weeks_relv)
+
+# Prevalence of ASVs at 40 days
+SNR_supp_HMA_mice_ps_40days <- subset_samples(SNR_supp_HMA_mice_donor_taxa_ps, Description == 'final fecal collection')
+SNR_supp_HMA_mice_ps_40days
+
+prevdf_40days <- makePrevDF(SNR_supp_HMA_mice_ps_40days,6)
+prevdf_40days_table <- as.data.frame(prevdf_40days[1])
+colonized_prevdf_40days <- prevdf_40days_table[prevdf_40days_table$Prevalence >= '6',]
+colonized_prevdf_40days$ASV_ID <- rownames(colonized_prevdf_40days)
+colonized_prevdf_40days <- colonized_prevdf_40days[,c(3,1,2)]
+tp_list <- rep('1', (nrow(colonized_prevdf_40days)))
+colonized_prevdf_40days_relv <- data.frame(ASV_ID = rownames(colonized_prevdf_40days), final_collection =  tp_list)
+dim(colonized_prevdf_40days_relv)
+View(colonized_prevdf_40days_relv)
+
+merged_prev_df_SNR_supp_mice <- Reduce(function(x, y) merge(x, y, all=TRUE), list(colonized_prevdf_48HRS_relv, colonized_prevdf_1week_relv, colonized_prevdf_2weeks_relv, colonized_prevdf_3weeks_relv, colonized_prevdf_4weeks_relv, colonized_prevdf_5weeks_relv, colonized_prevdf_40days_relv))
+str(merged_prev_df_SNR_supp_mice) # All columns considered factors
+merged_prev_df_SNR_supp_mice[2:8] <- lapply(merged_prev_df_SNR_supp_mice[2:8], as.numeric) # need to convert columns 2-9 to numeric in order to do 'rowSums'
+str(merged_prev_df_SNR_supp_mice)
+View(merged_prev_df_SNR_supp_mice)
+
+merged_prev_df_SNR_supp_mice[is.na(merged_prev_df_SNR_supp_mice)] <- 0 # Have to replace 'NA' (missing data) with '0' in order for 'rowSums' to work properly
+merged_prev_df_SNR_supp_mice$total <- rowSums(merged_prev_df_SNR_supp_mice[2:8]) # add the values in the rows and use them to populate a new column called 'total'
+View(merged_prev_df_SNR_supp_mice)
+merged_prev_df_SNR_supp_mice$ASV_ID <- as.character(as.factor(merged_prev_df_SNR_supp_mice$ASV_ID)) # convert 'ASV_ID' column to a character vector
+str(merged_prev_df_SNR_supp_mice)
+write.table(merged_prev_df_SNR_supp_mice, "merged_prev_df_SNR_supp_mice.txt", sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE)
+
+# persistent colonizers defined as taxa detected in all >= 4 time points
+perst_colonizing_taxa_SNR_supp_mice_df <- subset(merged_prev_df_SNR_supp_mice, total >= '4') # select the ASVs which were detected in at least 4 time points
+View(perst_colonizing_taxa_SNR_supp_mice_df)
+perst_colonizing_taxa_SNR_supp_mice <- perst_colonizing_taxa_SNR_supp_mice_df[,1]
+perst_colonizing_taxa_SNR_supp_mice # 17 ASVs persistently colonizing mice
+```
+
+
 

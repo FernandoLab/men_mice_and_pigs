@@ -1,0 +1,314 @@
+SampleID	Donor	Species	Bubble	Animal	Diet	Sample_or_Control	Batch	Description
+1	infant	human	NA	NA	NA	true_sample	run1	inoculum for pigs
+109	child	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+121	adult	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+13	child	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+133	elderly	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+145	infant	human	NA	NA	NA	true_sample	run1	inoculum for mice
+157	child	human	NA	NA	NA	true_sample	run1	inoculum for mice
+169	adult	human	NA	NA	NA	true_sample	run1	inoculum for mice
+181	elderly	human	NA	NA	NA	true_sample	run1	inoculum for mice
+193	infant	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+25	adult	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+37	elderly	human	NA	NA	NA	true_sample	run1	unused inoculum for mice
+49	infant	human	NA	NA	NA	true_sample	run1	inoculum for mice
+61	child	human	NA	NA	NA	true_sample	run1	inoculum for mice
+73	adult	human	NA	NA	NA	true_sample	run1	inoculum for mice
+85	elderly	human	NA	NA	NA	true_sample	run1	inoculum for mice
+97	infant	human	NA	NA	NA	true_sample	run1	inoculum for pigs
+10	infant	mouse	I29	A17	solid	true_sample	run1	2_days_post_inoculation
+102	adult	mouse	I34	A22	solid	true_sample	run1	2_days_post_inoculation
+103	adult	mouse	I34	A30	solid	true_sample	run1	2_days_post_inoculation
+104	child	mouse	I33	A38	solid	true_sample	run1	2_days_post_inoculation
+105	elderly	mouse	I47	B8	solid	true_sample	run1	7_days_post_inoculation
+106	adult	mouse	I34	B21	solid	true_sample	run1	7_days_post_inoculation
+107	adult	mouse	I34	B29	solid	true_sample	run1	7_days_post_inoculation
+108	child	mouse	I33	B37	solid	true_sample	run1	7_days_post_inoculation
+11	infant	mouse	I29	C12	solid	true_sample	run1	14_days_post_inoculation
+114	adult	mouse	I34	A23	solid	true_sample	run1	2_days_post_inoculation
+115	child	mouse	I33	A31	solid	true_sample	run1	2_days_post_inoculation
+116	child	mouse	I33	A39	solid	true_sample	run1	2_days_post_inoculation
+117	elderly	mouse	I47	B9	solid	true_sample	run1	7_days_post_inoculation
+118	adult	mouse	I34	B22	solid	true_sample	run1	7_days_post_inoculation
+119	adult	mouse	I34	B30	solid	true_sample	run1	7_days_post_inoculation
+12	elderly	mouse	I47	A5	solid	true_sample	run1	2_days_post_inoculation
+120	child	mouse	I33	B39	solid	true_sample	run1	7_days_post_inoculation
+125	infant	mouse	I29	A13	solid	true_sample	run1	2_days_post_inoculation
+126	adult	mouse	I34	A24	solid	true_sample	run1	2_days_post_inoculation
+127	child	mouse	I33	A32	solid	true_sample	run1	2_days_post_inoculation
+128	child	mouse	I33	A40	solid	true_sample	run1	2_days_post_inoculation
+129	elderly	mouse	I47	B10	solid	true_sample	run1	7_days_post_inoculation
+130	adult	mouse	I34	B23	solid	true_sample	run1	7_days_post_inoculation
+131	child	mouse	I33	B31	solid	true_sample	run1	7_days_post_inoculation
+132	child	mouse	I33	B39	solid	true_sample	run1	7_days_post_inoculation
+137	infant	mouse	I29	A14	solid	true_sample	run1	2_days_post_inoculation
+138	adult	mouse	I34	A25	solid	true_sample	run1	2_days_post_inoculation
+139	child	mouse	I33	A33	solid	true_sample	run1	2_days_post_inoculation
+140	elderly	mouse	I47	B3	solid	true_sample	run1	7_days_post_inoculation
+141	infant	mouse	I29	B13	solid	true_sample	run1	7_days_post_inoculation
+142	adult	mouse	I34	B24	solid	true_sample	run1	7_days_post_inoculation
+143	child	mouse	I33	B32	solid	true_sample	run1	7_days_post_inoculation
+144	child	mouse	I33	B40	solid	true_sample	run1	7_days_post_inoculation
+149	infant	mouse	I29	A15	solid	true_sample	run1	2_days_post_inoculation
+150	adult	mouse	I34	A26	solid	true_sample	run1	2_days_post_inoculation
+151	child	mouse	I33	A34	solid	true_sample	run1	2_days_post_inoculation
+152	elderly	mouse	I47	B4	solid	true_sample	run1	7_days_post_inoculation
+153	infant	mouse	I29	B14	solid	true_sample	run1	7_days_post_inoculation
+154	adult	mouse	I34	B25	solid	true_sample	run1	7_days_post_inoculation
+155	child	mouse	I33	B33	solid	true_sample	run1	7_days_post_inoculation
+156	elderly	mouse	I47	C1	solid	true_sample	run1	14_days_post_inoculation
+161	infant	mouse	I29	A19	solid	true_sample	run1	2_days_post_inoculation
+162	adult	mouse	I34	A27	solid	true_sample	run1	2_days_post_inoculation
+163	child	mouse	I33	A35	solid	true_sample	run1	2_days_post_inoculation
+164	elderly	mouse	I47	B5	solid	true_sample	run1	7_days_post_inoculation
+165	infant	mouse	I29	B15	solid	true_sample	run1	7_days_post_inoculation
+166	adult	mouse	I34	B26	solid	true_sample	run1	7_days_post_inoculation
+167	child	mouse	I33	B34	solid	true_sample	run1	7_days_post_inoculation
+168	elderly	mouse	I47	C2	solid	true_sample	run1	14_days_post_inoculation
+173	infant	mouse	I29	A20	solid	true_sample	run1	2_days_post_inoculation
+174	adult	mouse	I34	A28	solid	true_sample	run1	2_days_post_inoculation
+175	child	mouse	I33	A36	solid	true_sample	run1	2_days_post_inoculation
+176	elderly	mouse	I47	B6	solid	true_sample	run1	7_days_post_inoculation
+177	infant	mouse	I29	B19	solid	true_sample	run1	7_days_post_inoculation
+178	adult	mouse	I34	B27	solid	true_sample	run1	7_days_post_inoculation
+179	child	mouse	I33	B35	solid	true_sample	run1	7_days_post_inoculation
+180	elderly	mouse	I47	C3	solid	true_sample	run1	14_days_post_inoculation
+185	adult	mouse	I34	A21	solid	true_sample	run1	2_days_post_inoculation
+186	adult	mouse	I34	A29	solid	true_sample	run1	2_days_post_inoculation
+187	child	mouse	I33	A37	solid	true_sample	run1	2_days_post_inoculation
+188	elderly	mouse	I47	B7	solid	true_sample	run1	7_days_post_inoculation
+189	infant	mouse	I29	B20	solid	true_sample	run1	7_days_post_inoculation
+190	adult	mouse	I34	B28	solid	true_sample	run1	7_days_post_inoculation
+191	child	mouse	I33	B36	solid	true_sample	run1	7_days_post_inoculation
+194	infant	mouse	I29	C20	solid	true_sample	run1	14_days_post_inoculation
+195	adult	mouse	I34	C21	solid	true_sample	run1	14_days_post_inoculation
+196	adult	mouse	I34	C29	solid	true_sample	run1	14_days_post_inoculation
+197	child	mouse	I33	C37	solid	true_sample	run1	14_days_post_inoculation
+198	elderly	mouse	I47	D5	solid	true_sample	run1	21_days_post_inoculation
+199	infant	mouse	I29	D13	solid	true_sample	run1	21_days_post_inoculation
+200	adult	mouse	I34	D21	solid	true_sample	run1	21_days_post_inoculation
+201	adult	mouse	I34	D30	solid	true_sample	run1	21_days_post_inoculation
+202	child	mouse	I33	D38	solid	true_sample	run1	21_days_post_inoculation
+203	elderly	mouse	I47	E7	solid	true_sample	run1	28_days_post_inoculation
+204	infant	mouse	I29	E15	solid	true_sample	run1	28_days_post_inoculation
+206	elderly	mouse	I47	C4	solid	true_sample	run1	14_days_post_inoculation
+207	adult	mouse	I34	C22	solid	true_sample	run1	14_days_post_inoculation
+208	adult	mouse	I34	C30	solid	true_sample	run1	14_days_post_inoculation
+209	child	mouse	I33	C38	solid	true_sample	run1	14_days_post_inoculation
+210	elderly	mouse	I47	D6	solid	true_sample	run1	21_days_post_inoculation
+211	infant	mouse	I29	D14	solid	true_sample	run1	21_days_post_inoculation
+212	adult	mouse	I34	D22	solid	true_sample	run1	21_days_post_inoculation
+213	child	mouse	I33	D31	solid	true_sample	run1	21_days_post_inoculation
+214	child	mouse	I33	D40	solid	true_sample	run1	21_days_post_inoculation
+215	elderly	mouse	I47	E8	solid	true_sample	run1	28_days_post_inoculation
+216	infant	mouse	I29	E16	solid	true_sample	run1	28_days_post_inoculation
+218	elderly	mouse	I47	C5	solid	true_sample	run1	14_days_post_inoculation
+219	adult	mouse	I34	C23	solid	true_sample	run1	14_days_post_inoculation
+22	infant	mouse	I29	A18	solid	true_sample	run1	2_days_post_inoculation
+220	child	mouse	I33	C31	solid	true_sample	run1	14_days_post_inoculation
+221	child	mouse	I33	C39	solid	true_sample	run1	14_days_post_inoculation
+222	elderly	mouse	I47	D7	solid	true_sample	run1	21_days_post_inoculation
+223	infant	mouse	I29	D15	solid	true_sample	run1	21_days_post_inoculation
+224	adult	mouse	I34	D23	solid	true_sample	run1	21_days_post_inoculation
+225	child	mouse	I33	D32	solid	true_sample	run1	21_days_post_inoculation
+226	elderly	mouse	I47	E1	solid	true_sample	run1	28_days_post_inoculation
+227	elderly	mouse	I47	E9	solid	true_sample	run1	28_days_post_inoculation
+228	infant	mouse	I29	E17	solid	true_sample	run1	28_days_post_inoculation
+23	infant	mouse	I29	C16	solid	true_sample	run1	14_days_post_inoculation
+230	elderly	mouse	I47	C6	solid	true_sample	run1	14_days_post_inoculation
+231	adult	mouse	I34	C24	solid	true_sample	run1	14_days_post_inoculation
+232	child	mouse	I33	C32	solid	true_sample	run1	14_days_post_inoculation
+233	child	mouse	I33	C40	solid	true_sample	run1	14_days_post_inoculation
+234	elderly	mouse	I47	D8	solid	true_sample	run1	21_days_post_inoculation
+235	infant	mouse	I29	D16 	solid	true_sample	run1	21_days_post_inoculation
+236	adult	mouse	I34	D25	solid	true_sample	run1	21_days_post_inoculation
+237	child	mouse	I33	D33	solid	true_sample	run1	21_days_post_inoculation
+238	elderly	mouse	I47	E2	solid	true_sample	run1	28_days_post_inoculation
+239	elderly	mouse	I47	E10	solid	true_sample	run1	28_days_post_inoculation
+24	elderly	mouse	I47	A6	solid	true_sample	run1	2_days_post_inoculation
+240	infant	mouse	I29	E18	solid	true_sample	run1	28_days_post_inoculation
+241	infant	mouse	I29	C13	solid	true_sample	run1	14_days_post_inoculation
+242	elderly	mouse	I47	C7	solid	true_sample	run1	14_days_post_inoculation
+243	adult	mouse	I34	C25	solid	true_sample	run1	14_days_post_inoculation
+244	child	mouse	I33	C33	solid	true_sample	run1	14_days_post_inoculation
+245	elderly	mouse	I47	D1	solid	true_sample	run1	21_days_post_inoculation
+246	elderly	mouse	I47	D9	solid	true_sample	run1	21_days_post_inoculation
+247	infant	mouse	I29	D17	solid	true_sample	run1	21_days_post_inoculation
+248	adult	mouse	I34	D26	solid	true_sample	run1	21_days_post_inoculation
+249	child	mouse	I33	D34	solid	true_sample	run1	21_days_post_inoculation
+250	elderly	mouse	I47	E3	solid	true_sample	run1	28_days_post_inoculation
+251	infant	mouse	I29	E11	solid	true_sample	run1	28_days_post_inoculation
+252	infant	mouse	I29	E19	solid	true_sample	run1	28_days_post_inoculation
+253	infant	mouse	I29	C14	solid	true_sample	run1	14_days_post_inoculation
+254	elderly	mouse	I47	C8	solid	true_sample	run1	14_days_post_inoculation
+255	adult	mouse	I34	C26	solid	true_sample	run1	14_days_post_inoculation
+256	child	mouse	I33	C34	solid	true_sample	run1	14_days_post_inoculation
+257	elderly	mouse	I47	D2	solid	true_sample	run1	21_days_post_inoculation
+258	elderly	mouse	I47	D10	solid	true_sample	run1	21_days_post_inoculation
+259	infant	mouse	I29	D18	solid	true_sample	run1	21_days_post_inoculation
+260	adult	mouse	I34	D27	solid	true_sample	run1	21_days_post_inoculation
+261	child	mouse	I33	D35	solid	true_sample	run1	21_days_post_inoculation
+262	elderly	mouse	I47	E4	solid	true_sample	run1	28_days_post_inoculation
+263	infant	mouse	I29	E12	solid	true_sample	run1	28_days_post_inoculation
+264	infant	mouse	I29	E20	solid	true_sample	run1	28_days_post_inoculation
+265	infant	mouse	I29	C15	solid	true_sample	run1	14_days_post_inoculation
+266	elderly	mouse	I47	C9	solid	true_sample	run1	14_days_post_inoculation
+267	adult	mouse	I34	C27	solid	true_sample	run1	14_days_post_inoculation
+268	child	mouse	I33	C35	solid	true_sample	run1	14_days_post_inoculation
+269	elderly	mouse	I47	D3	solid	true_sample	run1	21_days_post_inoculation
+270	infant	mouse	I29	D11	solid	true_sample	run1	21_days_post_inoculation
+271	infant	mouse	I29	D19	solid	true_sample	run1	21_days_post_inoculation
+273	child	mouse	I33	D36	solid	true_sample	run1	21_days_post_inoculation
+274	elderly	mouse	I47	E5	solid	true_sample	run1	28_days_post_inoculation
+275	infant	mouse	I29	E13	solid	true_sample	run1	28_days_post_inoculation
+277	infant	mouse	I29	C19	solid	true_sample	run1	14_days_post_inoculation
+278	elderly	mouse	I47	C10	solid	true_sample	run1	14_days_post_inoculation
+279	adult	mouse	I34	C28	solid	true_sample	run1	14_days_post_inoculation
+280	child	mouse	I33	C36	solid	true_sample	run1	14_days_post_inoculation
+281	elderly	mouse	I47	D4	solid	true_sample	run1	21_days_post_inoculation
+282	infant	mouse	I29	D12	solid	true_sample	run1	21_days_post_inoculation
+283	infant	mouse	I29	D20	solid	true_sample	run1	21_days_post_inoculation
+284	adult	mouse	I34	D29	solid	true_sample	run1	21_days_post_inoculation
+285	child	mouse	I33	D37	solid	true_sample	run1	21_days_post_inoculation
+286	elderly	mouse	I47	E6	solid	true_sample	run1	28_days_post_inoculation
+287	infant	mouse	I29	E14	solid	true_sample	run1	28_days_post_inoculation
+288	adult	mouse	I34	E21	solid	true_sample	run1	28_days_post_inoculation
+36	elderly	mouse	I47	A7	solid	true_sample	run1	2_days_post_inoculation
+46	infant	mouse	I29	B12	solid	true_sample	run1	7_days_post_inoculation
+47	infant	mouse	I29	C18	solid	true_sample	run1	14_days_post_inoculation
+48	elderly	mouse	I47	A8	solid	true_sample	run1	2_days_post_inoculation
+58	infant	mouse	I29	B16	solid	true_sample	run1	7_days_post_inoculation
+59	elderly	mouse	I47	A1	solid	true_sample	run1	2_days_post_inoculation
+60	elderly	mouse	I47	A9	solid	true_sample	run1	2_days_post_inoculation
+70	infant	mouse	I29	B17	solid	true_sample	run1	7_days_post_inoculation
+71	elderly	mouse	I47	A2	solid	true_sample	run1	2_days_post_inoculation
+72	elderly	mouse	I47	A10	solid	true_sample	run1	2_days_post_inoculation
+81	infant	mouse	I29	A12	solid	true_sample	run1	2_days_post_inoculation
+82	infant	mouse	I29	B18	solid	true_sample	run1	7_days_post_inoculation
+83	elderly	mouse	I47	A3	solid	true_sample	run1	2_days_post_inoculation
+84	elderly	mouse	I47	B1	solid	true_sample	run1	7_days_post_inoculation
+94	infant	mouse	I29	C11	solid	true_sample	run1	14_days_post_inoculation
+95	elderly	mouse	I47	A4	solid	true_sample	run1	2_days_post_inoculation
+96	elderly	mouse	I47	B2	solid	true_sample	run1	7_days_post_inoculation
+272	adult	mouse	I34	D28	solid	true_sample	run2	21_days_post_inoculation
+289	adult	mouse	I34	E22	solid	true_sample	run2	28_days_post_inoculation
+290	elderly	mouse	I47	F1	solid	true_sample	run2	35_days_post_inoculation
+291	elderly	mouse	I47	F9	solid	true_sample	run2	35_days_post_inoculation
+292	child	mouse	I33	E37	solid	true_sample	run2	28_days_post_inoculation
+293	infant	mouse	I29	F16	solid	true_sample	run2	35_days_post_inoculation
+294	adult	mouse	I34	F25	solid	true_sample	run2	35_days_post_inoculation
+295	child	mouse	I33	F33	solid	true_sample	run2	35_days_post_inoculation
+296	elderly	mouse	I47	G2	solid	true_sample	run2	final fecal collection
+297	elderly	mouse	I47	G10	solid	true_sample	run2	final fecal collection
+298	infant	mouse	I29	G18	solid	true_sample	run2	final fecal collection
+299	adult	mouse	I34	G27	solid	true_sample	run2	final fecal collection
+300	child	mouse	I33	G35	solid	true_sample	run2	final fecal collection
+301	adult	mouse	I34	E23	solid	true_sample	run2	28_days_post_inoculation
+302	elderly	mouse	I47	F2	solid	true_sample	run2	35_days_post_inoculation
+303	elderly	mouse	I47	F10	solid	true_sample	run2	35_days_post_inoculation
+304	child	mouse	I33	E38	solid	true_sample	run2	28_days_post_inoculation
+305	infant	mouse	I29	F17	solid	true_sample	run2	35_days_post_inoculation
+306	adult	mouse	I34	F26	solid	true_sample	run2	35_days_post_inoculation
+307	child	mouse	I33	F34	solid	true_sample	run2	35_days_post_inoculation
+308	elderly	mouse	I47	G3	solid	true_sample	run2	final fecal collection
+309	infant	mouse	I29	G11	solid	true_sample	run2	final fecal collection
+310	infant	mouse	I29	G19	solid	true_sample	run2	final fecal collection
+311	adult	mouse	I34	G28	solid	true_sample	run2	final fecal collection
+312	child	mouse	I33	G36	solid	true_sample	run2	final fecal collection
+313	adult	mouse	I34	E25	solid	true_sample	run2	28_days_post_inoculation
+314	elderly	mouse	I47	F3	solid	true_sample	run2	35_days_post_inoculation
+315	child	mouse	I33	E31	solid	true_sample	run2	28_days_post_inoculation
+316	child	mouse	I33	E40	solid	true_sample	run2	28_days_post_inoculation
+317	infant	mouse	I29	F18	solid	true_sample	run2	35_days_post_inoculation
+318	adult	mouse	I34	F27	solid	true_sample	run2	35_days_post_inoculation
+319	child	mouse	I33	F35	solid	true_sample	run2	35_days_post_inoculation
+320	elderly	mouse	I47	G4	solid	true_sample	run2	final fecal collection
+321	infant	mouse	I29	G12	solid	true_sample	run2	final fecal collection
+322	infant	mouse	I29	G20	solid	true_sample	run2	final fecal collection
+323	adult	mouse	I34	G29	solid	true_sample	run2	final fecal collection
+324	child	mouse	I33	G37	solid	true_sample	run2	final fecal collection
+325	adult	mouse	I34	E26	solid	true_sample	run2	28_days_post_inoculation
+326	elderly	mouse	I47	F4	solid	true_sample	run2	35_days_post_inoculation
+327	child	mouse	I33	E32	solid	true_sample	run2	28_days_post_inoculation
+328	infant	mouse	I29	F11	solid	true_sample	run2	35_days_post_inoculation
+329	infant	mouse	I29	F19	solid	true_sample	run2	35_days_post_inoculation
+330	adult	mouse	I34	F28	solid	true_sample	run2	35_days_post_inoculation
+331	child	mouse	I33	F36	solid	true_sample	run2	35_days_post_inoculation
+332	elderly	mouse	I47	G5	solid	true_sample	run2	final fecal collection
+333	infant	mouse	I29	G13	solid	true_sample	run2	final fecal collection
+334	adult	mouse	I34	G21	solid	true_sample	run2	final fecal collection
+335	adult	mouse	I34	G30	solid	true_sample	run2	final fecal collection
+336	child	mouse	I33	G38	solid	true_sample	run2	final fecal collection
+337	adult	mouse	I34	E27	solid	true_sample	run2	28_days_post_inoculation
+338	elderly	mouse	I47	F5	solid	true_sample	run2	35_days_post_inoculation
+339	child	mouse	I33	E33	solid	true_sample	run2	28_days_post_inoculation
+340	infant	mouse	I29	F12	solid	true_sample	run2	35_days_post_inoculation
+341	infant	mouse	I29	F20	solid	true_sample	run2	35_days_post_inoculation
+342	adult	mouse	I34	F29	solid	true_sample	run2	35_days_post_inoculation
+343	child	mouse	I33	F37	solid	true_sample	run2	35_days_post_inoculation
+344	elderly	mouse	I47	G6	solid	true_sample	run2	final fecal collection
+345	infant	mouse	I29	G14	solid	true_sample	run2	final fecal collection
+346	adult	mouse	I34	G22	solid	true_sample	run2	final fecal collection
+347	child	mouse	I33	G31	solid	true_sample	run2	final fecal collection
+348	child	mouse	I33	G40	solid	true_sample	run2	final fecal collection
+349	adult	mouse	I34	E28	solid	true_sample	run2	28_days_post_inoculation
+350	elderly	mouse	I47	F6	solid	true_sample	run2	35_days_post_inoculation
+351	child	mouse	I33	E34	solid	true_sample	run2	28_days_post_inoculation
+352	infant	mouse	I29	F13	solid	true_sample	run2	35_days_post_inoculation
+353	adult	mouse	I34	F21	solid	true_sample	run2	35_days_post_inoculation
+354	adult	mouse	I34	F30	solid	true_sample	run2	35_days_post_inoculation
+355	child	mouse	I33	F38	solid	true_sample	run2	35_days_post_inoculation
+356	elderly	mouse	I47	G7	solid	true_sample	run2	final fecal collection
+357	infant	mouse	I29	G15	solid	true_sample	run2	final fecal collection
+358	adult	mouse	I34	G23	solid	true_sample	run2	final fecal collection
+359	child	mouse	I33	G32	solid	true_sample	run2	final fecal collection
+361	adult	mouse	I34	E29	solid	true_sample	run2	28_days_post_inoculation
+362	elderly	mouse	I47	F7	solid	true_sample	run2	35_days_post_inoculation
+363	child	mouse	I33	E35	solid	true_sample	run2	28_days_post_inoculation
+364	infant	mouse	I29	F14	solid	true_sample	run2	35_days_post_inoculation
+365	adult	mouse	I34	F22	solid	true_sample	run2	35_days_post_inoculation
+366	child	mouse	I33	F31	solid	true_sample	run2	35_days_post_inoculation
+367	child	mouse	I33	F40	solid	true_sample	run2	35_days_post_inoculation
+368	elderly	mouse	I47	G8	solid	true_sample	run2	final fecal collection
+369	infant	mouse	I29	G16	solid	true_sample	run2	final fecal collection
+370	adult	mouse	I34	G25	solid	true_sample	run2	final fecal collection
+371	child	mouse	I33	G33	solid	true_sample	run2	final fecal collection
+373	child	mouse	I33	E30	solid	true_sample	run2	28_days_post_inoculation
+374	elderly	mouse	I47	F8	solid	true_sample	run2	35_days_post_inoculation
+375	child	mouse	I33	E36	solid	true_sample	run2	28_days_post_inoculation
+376	infant	mouse	I29	F15	solid	true_sample	run2	35_days_post_inoculation
+377	adult	mouse	I34	F23	solid	true_sample	run2	35_days_post_inoculation
+378	child	mouse	I33	F32	solid	true_sample	run2	35_days_post_inoculation
+379	elderly	mouse	I47	G1	solid	true_sample	run2	final fecal collection
+380	elderly	mouse	I47	G9	solid	true_sample	run2	final fecal collection
+381	infant	mouse	I29	G17	solid	true_sample	run2	final fecal collection
+382	adult	mouse	I34	G26	solid	true_sample	run2	final fecal collection
+383	child	mouse	I33	G34	solid	true_sample	run2	final fecal collection
+192	NEG	NA	NA	NA	NA	negative_control	run1	NA
+2	NEG	NA	NA	NA	NA	negative_control	run1	NA
+276	NEG	NA	NA	NA	NA	negative_control	run1	NA
+360	NEG	NA	NA	NA	NA	negative_control	run2	NA
+372	NEG	NA	NA	NA	NA	negative_control	run2	NA
+384	NEG	NA	NA	NA	NA	negative_control	run2	NA
+101	infant	piglet	B6	6-C-2	solid	true_sample	run1	last sample inside bubble
+15	infant	piglet	B6	6-C-1	milk	true_sample	run1	2_days_post_inoculation
+160	infant	piglet	B6	6-A	solid	true_sample	run1	last sample inside bubble
+172	infant	piglet	B6	6-B	solid	true_sample	run1	last sample inside bubble
+184	infant	piglet	B6	6-C-1	solid	true_sample	run1	last sample inside bubble
+19	infant	piglet	B6	6-B	solid	true_sample	run1	21_days_post_inoculation
+20	infant	piglet	B6	6-B	solid	true_sample	run1	28_days_post_inoculation
+21	infant	piglet	B6	6-B	solid	true_sample	run1	35_days_post_inoculation
+28	infant	piglet	B6	6-A	milk	true_sample	run1	7_days_post_inoculation
+3	infant	piglet	B6	6-B	milk	true_sample	run1	2_days_post_inoculation
+32	infant	piglet	B6	6-C-1	solid	true_sample	run1	28_days_post_inoculation
+33	infant	piglet	B6	6-C-1	solid	true_sample	run1	35_days_post_inoculation
+40	infant	piglet	B6	6-B	milk	true_sample	run1	7_days_post_inoculation
+45	infant	piglet	B6	6-C-2	solid	true_sample	run1	35_days_post_inoculation
+52	infant	piglet	B6	6-C-1	milk	true_sample	run1	7_days_post_inoculation
+6	infant	piglet	B6	6-C-1	transition	true_sample	run1	14_days_post_inoculation
+64	infant	piglet	B6	6-C-2	milk	true_sample	run1	7_days_post_inoculation
+7	infant	piglet	B6	6-A	solid	true_sample	run1	21_days_post_inoculation
+77	infant	piglet	B6	6-A	transition	true_sample	run1	14_days_post_inoculation
+8	infant	piglet	B6	6-A	solid	true_sample	run1	28_days_post_inoculation
+86	infant	piglet	B6	6-A	milk	true_sample	run1	2_days_post_inoculation
+9	infant	piglet	B6	6-A	solid	true_sample	run1	35_days_post_inoculation
