@@ -11380,31 +11380,6 @@ wilcox.test(ELD_mice,ELD_piglets)
 ```
 
 
-##**Calculating Jaccard Similarity**##
-
-```{r,echo=TRUE}
-install.packages('bayesbio')
-library('bayesbio'); packageVersion('bayesbio')
-
-# INF2 donor
-jaccardSets(core_INF2_taxa,core_INF2_taxa_colonizing_mice) # 0.81
-jaccardSets(core_INF2_taxa,core_INF2_taxa_colonizing_piglets) # 0.77
-
-# CHLD2 donor
-jaccardSets(core_CHLD2_taxa,core_CHLD2_taxa_colonizing_mice) # 0.49
-jaccardSets(core_CHLD2_taxa,core_CHLD2_taxa_colonizing_piglets) # 0.86
-
-# ADLT2 donor
-jaccardSets(core_ADLT2_taxa,core_ADLT2_taxa_colonizing_mice) # 0.47
-jaccardSets(core_ADLT2_taxa,core_ADLT2_taxa_colonizing_piglets) # 0.76
-
-# ELD2 donor
-jaccardSets(core_ELD2_taxa,core_ELD2_taxa_colonizing_mice) # 0.41
-jaccardSets(core_ELD2_taxa,core_ELD2_taxa_colonizing_piglets) # 0.69
-```
-
-
-
 #################################################################################
 DATA ANALYSIS FOR SUPPLEMENTARY MATERIALS
 #################################################################################
