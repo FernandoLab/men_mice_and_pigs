@@ -772,7 +772,7 @@ merged_pig_mouse_comp_ps <-merge_phyloseq(merged_pig_mouse_comp_ps, phylo_tree)
 merged_pig_mouse_comp_ps
 
 saveRDS(merged_pig_mouse_comp_ps, "merged_pig_mouse_comp_ps.rds")
-#merged_pig_mouse_comp_ps <- readRDS("merged_pig_mouse_comp_ps.rds")
+merged_pig_mouse_comp_ps <- readRDS("merged_pig_mouse_comp_ps.rds")
 #merged_pig_mouse_comp_ps
 ```
 
@@ -1023,7 +1023,7 @@ write.table(sample_data(merged_pig_mouse_comp_INF_ps), "INF2_sample_data.txt", s
 
 For the infant microbiota, there were two groups of pigs (3 pigs/group): one group (early inoculations) were inoculated while they were on a milk diet, while the other group (late inoculations) were inoculated after they had been weaned and were on a solid diet. For this study we'll only concentrate on the late-inoculation piglets. Let's go ahead and compare INF2 donor, HMA mice, and the late-inoculated piglet fecal bacterial communities :
 
-Let's first have a look at how the humanized animal model fecal bacterial communities cluster relative to the human donor inocula communities. As mentioned earluer, we'll compare only the 'late inoculation' piglets to the mice and human donor samples:
+Let's first have a look at how the humanized animal model fecal bacterial communities cluster relative to the human donor inocula communities. As mentioned earlier, we'll compare only the 'late inoculation' piglets to the mice and human donor samples:
 
 ```{r, echo=TRUE}
 pig_mouse_comp_INF2_comparison_ps <- subset_samples (pig_mouse_comp_INF2_master_ps, Actual_inoculum != 'no'|is.na(Actual_inoculum))
@@ -1133,7 +1133,7 @@ rel_abund_INF2_core_ps
 
 # plotting PCoA using unweighted unifrac distances for core taxa - INF2
 unw_ord_INF2_core <- ordinate(rel_abund_INF2_core_ps, method = "PCoA", distance = "unifrac", weighted = F)
-unweighted_pcoa_INF2_core <- plot_ordination(rel_abund_INF2_core_ps, unw_ord_INF2_core, color = "Species", shape = "Species") + ggtitle("INF donor PCoA plot - Unweighted Unifrac") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+unweighted_pcoa_INF2_core <- plot_ordination(rel_abund_INF2_core_ps, unw_ord_INF2_core, color = "Species", shape = "Species") + ggtitle("INF donor PCoA plot - Unweighted UniFrac") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 unweighted_pcoa_INF2_core
 
 # plotting PCoA using weighted unifrac distances for core taxa - INF2
@@ -1151,7 +1151,7 @@ jaccard_pcoa_INF2_core
 
 # plotting PCoA using Bray-Curtis distances for core taxa - INF2
 bray_ord_INF2_core <- ordinate(rel_abund_INF2_core_ps, method = "PCoA", distance = "bray")
-bray_pcoa_INF2_core <- plot_ordination(rel_abund_INF2_core_ps, bray_ord_INF2_core, color = "Species", shape = "Species") + ggtitle("INF donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+bray_pcoa_INF2_core <- plot_ordination(rel_abund_INF2_core_ps, bray_ord_INF2_core, color = "Species", shape = "Species") + ggtitle("INF donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 bray_pcoa_INF2_core
 
 INF2_core_unifrac_comb <- grid.arrange(ncol = 2, unweighted_pcoa_INF2_core, weighted_pcoa_INF2_core)
@@ -1164,7 +1164,7 @@ INF2_core_unifrac_bray_comb <- grid.arrange(ncol = 2, unweighted_pcoa_INF2_core,
 INF2_core_unifrac_bray_comb
 
 ## Let's also color the unweighted unifrac and bray-curtis plots by sampling time point
-unwunifrac_INF2_core_by_tp <- plot_ordination(rel_abund_INF2_core_ps, unw_ord_INF2_core, color = "Time_point", shape = "Species") + ggtitle("Infant donor PCoA plot for core ASVs - unweighted unifrac") + theme(plot.title = element_text(hjust = 0.5)) 
+unwunifrac_INF2_core_by_tp <- plot_ordination(rel_abund_INF2_core_ps, unw_ord_INF2_core, color = "Time_point", shape = "Species") + ggtitle("Infant donor PCoA plot for core ASVs - unweighted Unifrac") + theme(plot.title = element_text(hjust = 0.5)) 
 unwunifrac_INF2_core_by_tp
 
 bray_INF2_by_tp <- plot_ordination(rel_abund_INF2_core_ps, bray_ord_INF2_core, color = "Time_point", shape = "Species") + ggtitle("Infant donor PCoA plot core ASVs - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10))
@@ -1692,7 +1692,7 @@ rel_abund_CHLD2_core_ps
 
 # plotting PCoA using unweighted unifrac distances for core taxa - CHLD2
 unw_ord_CHLD2_core <- ordinate(rel_abund_CHLD2_core_ps, method = "PCoA", distance = "unifrac", weighted = F)
-unweighted_pcoa_CHLD2_core <- plot_ordination(rel_abund_CHLD2_core_ps, unw_ord_CHLD2_core, color = "Species", shape = "Species") + ggtitle("CHLD donor PCoA plot - Unweighted Unifrac") + theme(plot.title = element_text(hjust = 0.5, size = 10)) 
+unweighted_pcoa_CHLD2_core <- plot_ordination(rel_abund_CHLD2_core_ps, unw_ord_CHLD2_core, color = "Species", shape = "Species") + ggtitle("CHLD donor PCoA plot - Unweighted UniFrac") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species") 
 unweighted_pcoa_CHLD2_core
 
 # plotting PCoA using weighted unifrac distances for core taxa - CHLD2
@@ -1707,7 +1707,7 @@ jaccard_pcoa_CHLD2_core
 
 # plotting PCoA using Bray-Curtis distances for core taxa - CHLD2
 bray_ord_CHLD2_core <- ordinate(rel_abund_CHLD2_core_ps, method = "PCoA", distance = "bray")
-bray_pcoa_CHLD2_core <- plot_ordination(rel_abund_CHLD2_core_ps, bray_ord_CHLD2_core, color = "Species", shape = "Species") + ggtitle("CHLD donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+bray_pcoa_CHLD2_core <- plot_ordination(rel_abund_CHLD2_core_ps, bray_ord_CHLD2_core, color = "Species", shape = "Species") + ggtitle("CHLD donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 bray_pcoa_CHLD2_core
 
 CHLD2_core_unifrac_comb <- grid.arrange(ncol = 2, unweighted_pcoa_CHLD2_core, weighted_pcoa_CHLD2_core)
@@ -2027,7 +2027,7 @@ rel_abund_ADLT2_core_ps
 
 # plotting PCoA using unweighted unifrac distances for core taxa - ADLT2
 unw_ord_ADLT2_core <- ordinate(rel_abund_ADLT2_core_ps, method = "PCoA", distance = "unifrac", weighted = F)
-unweighted_pcoa_ADLT2_core <- plot_ordination(rel_abund_ADLT2_core_ps, unw_ord_ADLT2_core, color = "Species", shape = "Species") + ggtitle("ADLT donor PCoA plot - Unweighted Unifrac") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+unweighted_pcoa_ADLT2_core <- plot_ordination(rel_abund_ADLT2_core_ps, unw_ord_ADLT2_core, color = "Species", shape = "Species") + ggtitle("ADLT donor PCoA plot - Unweighted UniFrac") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 unweighted_pcoa_ADLT2_core
 
 # plotting PCoA using weighted unifrac distances for core taxa - ADLT2
@@ -2042,7 +2042,7 @@ jaccard_pcoa_ADLT2_core
 
 # plotting PCoA using Bray-Curtis distances for core taxa - ADLT2
 bray_ord_ADLT2_core <- ordinate(rel_abund_ADLT2_core_ps, method = "PCoA", distance = "bray")
-bray_pcoa_ADLT2_core <- plot_ordination(rel_abund_ADLT2_core_ps, bray_ord_ADLT2_core, color = "Species", shape = "Species" ) + ggtitle("ADLT donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+bray_pcoa_ADLT2_core <- plot_ordination(rel_abund_ADLT2_core_ps, bray_ord_ADLT2_core, color = "Species", shape = "Species" ) + ggtitle("ADLT donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 bray_pcoa_ADLT2_core
 
 ADLT2_core_unifrac_comb <- grid.arrange(ncol = 2, unweighted_pcoa_ADLT2_core, weighted_pcoa_ADLT2_core)
@@ -2354,7 +2354,7 @@ rel_abund_ELD2_core_ps
 
 # plotting PCoA using unweighted unifrac distances for core taxa - ELD2
 unw_ord_ELD2_core <- ordinate(rel_abund_ELD2_core_ps, method = "PCoA", distance = "unifrac", weighted = F)
-unweighted_pcoa_ELD2_core <- plot_ordination(rel_abund_ELD2_core_ps, unw_ord_ELD2_core, color = "Species", shape = "Species") + ggtitle("SNR donor PCoA plot - Unweighted Unifrac") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+unweighted_pcoa_ELD2_core <- plot_ordination(rel_abund_ELD2_core_ps, unw_ord_ELD2_core, color = "Species", shape = "Species") + ggtitle("SNR donor PCoA plot - Unweighted UniFrac") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 unweighted_pcoa_ELD2_core
 
 # plotting PCoA using weighted unifrac distances for core taxa - ELD2
@@ -2369,7 +2369,7 @@ jaccard_pcoa_ELD2_core
 
 # plotting PCoA using Bray-Curtis distances for core taxa - ELD2
 bray_ord_ELD2_core <- ordinate(rel_abund_ELD2_core_ps, method = "PCoA", distance = "bray")
-bray_pcoa_ELD2_core <- plot_ordination(rel_abund_ELD2_core_ps, bray_ord_ELD2_core, color = "Species", shape = "Species") + ggtitle("SNR donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10))
+bray_pcoa_ELD2_core <- plot_ordination(rel_abund_ELD2_core_ps, bray_ord_ELD2_core, color = "Species", shape = "Species") + ggtitle("SNR donor PCoA plot - Bray-Curtis") + theme(plot.title = element_text(hjust = 0.5, size = 10), legend.title = element_text(size = 10)) + labs(colour = "", shape = "host species")
 bray_pcoa_ELD2_core
 
 ELD2_core_unifrac_comb <- grid.arrange(ncol = 2, unweighted_pcoa_ELD2_core, weighted_pcoa_ELD2_core)
@@ -11070,7 +11070,7 @@ highlight.sector(P_ASVs, track.index = 1, col = "dark blue", text = "core SNR AS
 circos.clear() # Need to clear before starting to make a new chord diagram using different sector options
 ```
 
-##**Comparing unifrac and Bray-Curtis distances**##
+##**Comparing unweighted UniFrac and Bray-Curtis distances**##
 
 
 **Comparing unweighted Unifrac Distances**
@@ -11185,7 +11185,7 @@ ELD2_dist_comp.sd = left_join(ELD2_dist_comp.m, sample_data_ELD2, by = "Var1")
 comb_unifrac_df <- rbind(INF2_dist_comp.sd,CHLD2_dist_comp.sd,ADLT2_dist_comp.sd,ELD2_dist_comp.sd)
 View(comb_unifrac_df)
 
-plot_unifrac <- ggplot(comb_unifrac_df, aes(x = Donor, y = value, fill = Species)) + geom_boxplot() + scale_x_discrete(limits=c("INF2", "CHLD2", "ADLT2", "ELD2"), labels = c("Infant", "Child", "Adult", "Senior")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Donor") + scale_fill_manual(values = c("forestgreen", "dodgerblue3"), name = "host species", labels = c("Donor inocula vs. HMA mouse fecal samples","Donor inocula vs. HMA piglet fecal samples")) + scale_y_continuous(name = "Unweighted unifrac distance from donor",  limits = c(0,1), labels = scales::number_format(accuracy=0.1))
+plot_unifrac <- ggplot(comb_unifrac_df, aes(x = Donor, y = value, fill = Species)) + geom_boxplot() + scale_x_discrete(limits=c("INF2", "CHLD2", "ADLT2", "ELD2"), labels = c("Infant", "Child", "Adult", "Senior")) + theme(axis.text.x=element_text(angle=45,hjust=1), legend.title = element_text(size = 10)) + xlab("Donor") + scale_fill_manual(values = c("forestgreen", "dodgerblue3"), name = "host species", labels = c("Donor inocula vs. HMA mouse fecal samples","Donor inocula vs. HMA piglet fecal samples")) + scale_y_continuous(name = "Unweighted UniFrac distance from donor",  limits = c(0,1), labels = scales::number_format(accuracy=0.1))
 
 plot_unifrac
 
@@ -11378,6 +11378,96 @@ ELD_piglets <- ELD_piglets$value
 
 wilcox.test(ELD_mice,ELD_piglets)
 ```
+
+
+##**PICRUSt Analysis**##
+
+```{r, echo=TRUE}
+setwd("/Users/niroshaluthge/Desktop/NDA/manuscripts/pig_mouse_comparison_study")
+getwd()
+merged_biomfile <- "merged-qiime2-feature-table/merged-qiime2-feature-table-json-format.biom" 
+merged_biom = biomformat::read_biom(biom_file = merged_biomfile)
+merged_qiime2_table <- import_biom(merged_biom) 
+merged_seqtab_all_runs <- t(as(otu_table(merged_qiime2_table), "matrix")) # Need to transform it back so that the 'taxa' are columns and the 'samples' are rows since that's how phyloseq wants it
+dim(merged_seqtab_all_runs)
+
+sum(merged_seqtab_all_runs)
+
+# chimera filtering
+typeof(merged_seqtab_all_runs) 
+# comes out as 'Double' (not sure why this happens but may be something to do with converting and merging)
+# need to convert to an 'Integer' matrix before chimera picking using 'removeBimeraDeNovo'
+storage.mode(merged_seqtab_all_runs) <- "integer"
+typeof(merged_seqtab_all_runs)
+
+merged_seqtab_all_runs_nochim <- removeBimeraDenovo(merged_seqtab_all_runs, method = "consensus", multithread = TRUE, verbose = TRUE)
+dim(merged_seqtab_all_runs_nochim)
+sum(merged_seqtab_all_runs_nochim)/sum(merged_seqtab_all_runs) 
+
+mapping_file <- read.table("pig_mouse_comp_r2_mapping_file.txt", sep = "\t", header = TRUE) # read-in mapping file
+rownames(mapping_file) <- mapping_file$SampleID
+
+taxa_table <- readRDS("taxTab.rds")
+
+merged_phyloseq_ps <- merge_phyloseq(otu_table(merged_seqtab_all_runs_nochim, taxa_are_rows = FALSE), sample_data(mapping_file), tax_table(taxa_table))
+merged_phyloseq_ps
+
+head(taxa_names(merged_phyloseq_ps)) # check to make sure that taxa names are teh actual sequences (not 'ASV_#' format)
+
+# remove negative controls
+merged_phyloseq_ps_no_neg <- subset_samples(merged_phyloseq_ps, Description != 'negative_control')
+merged_phyloseq_ps_no_neg
+
+# filtering out Archaea, Eukaryota, and Mitochondria sequences
+remov_kingdoms <- c('Archaea', 'Eukaryota')
+merged_pig_mouse_comp_ps_master <- subset_taxa(merged_phyloseq_ps_no_neg, !Kingdom %in% remov_kingdoms & (Family != 'Mitochondria' | is.na(Family))) 
+merged_pig_mouse_comp_ps_master
+merged_pig_mouse_comp_ps_master <- subset_taxa(merged_pig_mouse_comp_ps_master, Kingdom == 'Bacteria') # removed 4 ASVs classified as 'NA' at the kingdom level
+merged_pig_mouse_comp_ps_master
+
+# Now let's remove Cyanobacterial sequences except for those that belong to the Class Melainabacteria (which are thought to be human gut cyanobacteria)
+cyano_ps <- subset_taxa(merged_pig_mouse_comp_ps_master, Phylum == "Cyanobacteria")
+cyano_ps # 5 cyanobacterial ASVs identified
+
+remov_cyano_ps <- subset_taxa(cyano_ps, Class != "Melainabacteria" | is.na(Class)) # Keep only Melainabacteria (also remove any cyano ASVs with 'NA' as class)
+cyano_to_remove <- taxa_names(remov_cyano_ps) 
+
+# filtering out the non-Melainabacterial Cyanobacteria 
+all_taxa <- taxa_names(merged_pig_mouse_comp_ps_master)
+good_taxa <- all_taxa[!(all_taxa %in% cyano_to_remove)]
+good_taxa
+
+merged_pig_mouse_comp_ps_master_no_cyano <- prune_taxa(good_taxa,merged_pig_mouse_comp_ps_master)
+merged_pig_mouse_comp_ps_master_no_cyano
+
+# Let's also perform a prevalence calculation and filter out any ASV which is present in only a single sample
+prevdf <- apply(X = otu_table(merged_pig_mouse_comp_ps_master_no_cyano), MARGIN = ifelse(taxa_are_rows(merged_pig_mouse_comp_ps_master_no_cyano), yes = 1, no = 2), FUN = function(x){sum(x > 0)})
+View(prevdf)
+prevdf_with_taxa <- data.frame(Prevalence = prevdf, TotalAbundance = taxa_sums(merged_pig_mouse_comp_ps_master_no_cyano), tax_table(merged_pig_mouse_comp_ps_master_no_cyano))
+View(prevdf_with_taxa)
+
+# Retaining only those ASVs found in at least one sample
+keepTaxa <- rownames(prevdf_with_taxa)[(prevdf_with_taxa$Prevalence >1)]
+pig_mouse_comp_PICRUSt_ps <- prune_taxa(keepTaxa, merged_pig_mouse_comp_ps_master_no_cyano)
+pig_mouse_comp_PICRUSt_ps # we end up with a quality-filtered phyloseq object which has 588 ASVs
+
+# Let's look at read depth
+reads_per_sample_df <- data.frame(Reads = sample_sums(pig_mouse_comp_PICRUSt_ps)) 
+reads_per_sample_df$sampleID <- rownames(reads_per_sample_df)
+View(reads_per_sample_df)
+reads_per_sample_df <- reads_per_sample_df[,c(2,1)] # reorder columns
+reads_per_sample_df_sorted <- reads_per_sample_df[order(reads_per_sample_df$Reads),] # order samples by read count (ascending)
+View(reads_per_sample_df_sorted)
+
+# filtering out samples with <10,500 reads
+pig_mouse_comp_PICRUSt_comp_ps <- prune_samples(sample_sums(pig_mouse_comp_PICRUSt_ps) > 10500, pig_mouse_comp_PICRUSt_ps)
+pig_mouse_comp_PICRUSt_comp_ps 
+
+# remove fecal samples collected at euthanization
+pig_mouse_comp_PICRUSt_comp_ps <- subset_samples(pig_mouse_comp_PICRUSt_comp_ps, Time_point != "at_euthanization" )
+pig_mouse_comp_PICRUSt_comp_ps # main phyloseq object to be used as the starting point for the following analyses
+```
+
 
 
 #################################################################################
@@ -11748,7 +11838,7 @@ supp_mater_INF_core_ps.prop
 
 # PCoA plotting using unweighted unifrac distances
 unw_ord_INF_core <- ordinate(supp_mater_INF_core_ps.prop, method = "PCoA", distance = "unifrac", weighted = F)
-unwunifrac_INF_supp_core <- plot_ordination(supp_mater_INF_core_ps.prop, unw_ord_INF_core, color = "Species", shape = "Species") + ggtitle("Infant donor core PCoA plot - unweighted unifrac") + theme(plot.title = element_text(hjust = 0.5)) + labs(colour = " ", shape = "host species")
+unwunifrac_INF_supp_core <- plot_ordination(supp_mater_INF_core_ps.prop, unw_ord_INF_core, color = "Species", shape = "Species") + ggtitle("Infant donor core PCoA plot - unweighted unifrac") + theme(plot.title = element_text(hjust = 0.5), legend.title = element_text(size = 10)) + labs(colour = " ", shape = "host species")
 unwunifrac_INF_supp_core 
 
 # plotting using Bray-Curtis distances
