@@ -1,0 +1,289 @@
+Samp	Col
+ASVH1	red
+ASVH101	red
+ASVH105	red
+ASVH115	red
+ASVH117	red
+ASVH12	red
+ASVH123	red
+ASVH131	red
+ASVH136	red
+ASVH137	red
+ASVH138	red
+ASVH14	red
+ASVH145	red
+ASVH147	red
+ASVH149	red
+ASVH158	red
+ASVH16	red
+ASVH164	red
+ASVH171	red
+ASVH175	red
+ASVH178	red
+ASVH181	red
+ASVH186	red
+ASVH187	red
+ASVH193	red
+ASVH194	red
+ASVH197	red
+ASVH20	red
+ASVH202	red
+ASVH210	red
+ASVH22	red
+ASVH223	red
+ASVH234	red
+ASVH25	red
+ASVH253	red
+ASVH26	red
+ASVH265	red
+ASVH266	red
+ASVH274	red
+ASVH277	red
+ASVH28	red
+ASVH281	red
+ASVH282	red
+ASVH286	red
+ASVH290	red
+ASVH292	red
+ASVH313	red
+ASVH314	red
+ASVH335	red
+ASVH339	red
+ASVH347	red
+ASVH35	red
+ASVH357	red
+ASVH36	red
+ASVH362	red
+ASVH368	red
+ASVH38	red
+ASVH381	red
+ASVH39	red
+ASVH391	red
+ASVH4	red
+ASVH40	red
+ASVH415	red
+ASVH42	red
+ASVH424	red
+ASVH448	red
+ASVH456	red
+ASVH48	red
+ASVH498	red
+ASVH5	red
+ASVH50	red
+ASVH512	red
+ASVH54	red
+ASVH55	red
+ASVH57	red
+ASVH574	red
+ASVH6	red
+ASVH604	red
+ASVH61	red
+ASVH64	red
+ASVH645	red
+ASVH671	red
+ASVH680	red
+ASVH69	red
+ASVH706	red
+ASVH74	red
+ASVH76	red
+ASVH77	red
+ASVH78	red
+ASVH79	red
+ASVH833	red
+ASVH86	red
+ASVH87	red
+ASVH9	red
+ASVH92	red
+ASVH95	red
+ASVM1	dark green
+ASVM101	dark green
+ASVM105	dark green
+ASVM115	dark green
+ASVM117	dark green
+ASVM12	dark green
+ASVM123	dark green
+ASVM131	dark green
+ASVM136	dark green
+ASVM137	dark green
+ASVM138	dark green
+ASVM14	dark green
+ASVM145	dark green
+ASVM147	dark green
+ASVM149	dark green
+ASVM158	dark green
+ASVM16	dark green
+ASVM164	dark green
+ASVM171	dark green
+ASVM175	dark green
+ASVM178	dark green
+ASVM181	dark green
+ASVM186	dark green
+ASVM187	dark green
+ASVM193	dark green
+ASVM194	dark green
+ASVM197	dark green
+ASVM20	dark green
+ASVM202	dark green
+ASVM210	dark green
+ASVM22	dark green
+ASVM223	dark green
+ASVM234	dark green
+ASVM25	dark green
+ASVM253	dark green
+ASVM26	dark green
+ASVM265	dark green
+ASVM266	dark green
+ASVM274	dark green
+ASVM277	dark green
+ASVM28	dark green
+ASVM281	dark green
+ASVM282	dark green
+ASVM286	dark green
+ASVM290	dark green
+ASVM292	dark green
+ASVM313	dark green
+ASVM314	dark green
+ASVM335	dark green
+ASVM339	dark green
+ASVM347	dark green
+ASVM35	dark green
+ASVM357	dark green
+ASVM36	dark green
+ASVM362	dark green
+ASVM368	dark green
+ASVM38	dark green
+ASVM381	dark green
+ASVM39	dark green
+ASVM391	dark green
+ASVM4	dark green
+ASVM40	dark green
+ASVM415	dark green
+ASVM42	dark green
+ASVM424	dark green
+ASVM448	dark green
+ASVM456	dark green
+ASVM48	dark green
+ASVM498	dark green
+ASVM5	dark green
+ASVM50	dark green
+ASVM512	dark green
+ASVM54	dark green
+ASVM55	dark green
+ASVM57	dark green
+ASVM574	dark green
+ASVM6	dark green
+ASVM604	dark green
+ASVM61	dark green
+ASVM64	dark green
+ASVM645	dark green
+ASVM671	dark green
+ASVM680	dark green
+ASVM69	dark green
+ASVM706	dark green
+ASVM74	dark green
+ASVM76	dark green
+ASVM77	dark green
+ASVM78	dark green
+ASVM79	dark green
+ASVM833	dark green
+ASVM86	dark green
+ASVM87	dark green
+ASVM9	dark green
+ASVM92	dark green
+ASVM95	dark green
+ASVP1	dark blue
+ASVP101	dark blue
+ASVP105	dark blue
+ASVP115	dark blue
+ASVP117	dark blue
+ASVP12	dark blue
+ASVP123	dark blue
+ASVP131	dark blue
+ASVP136	dark blue
+ASVP137	dark blue
+ASVP138	dark blue
+ASVP14	dark blue
+ASVP145	dark blue
+ASVP147	dark blue
+ASVP149	dark blue
+ASVP158	dark blue
+ASVP16	dark blue
+ASVP164	dark blue
+ASVP171	dark blue
+ASVP175	dark blue
+ASVP178	dark blue
+ASVP181	dark blue
+ASVP186	dark blue
+ASVP187	dark blue
+ASVP193	dark blue
+ASVP194	dark blue
+ASVP197	dark blue
+ASVP20	dark blue
+ASVP202	dark blue
+ASVP210	dark blue
+ASVP22	dark blue
+ASVP223	dark blue
+ASVP234	dark blue
+ASVP25	dark blue
+ASVP253	dark blue
+ASVP26	dark blue
+ASVP265	dark blue
+ASVP266	dark blue
+ASVP274	dark blue
+ASVP277	dark blue
+ASVP28	dark blue
+ASVP281	dark blue
+ASVP282	dark blue
+ASVP286	dark blue
+ASVP290	dark blue
+ASVP292	dark blue
+ASVP313	dark blue
+ASVP314	dark blue
+ASVP335	dark blue
+ASVP339	dark blue
+ASVP347	dark blue
+ASVP35	dark blue
+ASVP357	dark blue
+ASVP36	dark blue
+ASVP362	dark blue
+ASVP368	dark blue
+ASVP38	dark blue
+ASVP381	dark blue
+ASVP39	dark blue
+ASVP391	dark blue
+ASVP4	dark blue
+ASVP40	dark blue
+ASVP415	dark blue
+ASVP42	dark blue
+ASVP424	dark blue
+ASVP448	dark blue
+ASVP456	dark blue
+ASVP48	dark blue
+ASVP498	dark blue
+ASVP5	dark blue
+ASVP50	dark blue
+ASVP512	dark blue
+ASVP54	dark blue
+ASVP55	dark blue
+ASVP57	dark blue
+ASVP574	dark blue
+ASVP6	dark blue
+ASVP604	dark blue
+ASVP61	dark blue
+ASVP64	dark blue
+ASVP645	dark blue
+ASVP671	dark blue
+ASVP680	dark blue
+ASVP69	dark blue
+ASVP706	dark blue
+ASVP74	dark blue
+ASVP76	dark blue
+ASVP77	dark blue
+ASVP78	dark blue
+ASVP79	dark blue
+ASVP833	dark blue
+ASVP86	dark blue
+ASVP87	dark blue
+ASVP9	dark blue
+ASVP92	dark blue
+ASVP95	dark blue
