@@ -1,91 +1,91 @@
 SampleID	Donor	Species	Bubble	Animal	Date	Gender	Timingofinocu	Diet	SampleType	Actual_inoculum	Color_Sp	Time_point	Description
-162	ELD2	mouse	29	B31	22-Aug-17	male	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-169	ELD2	mouse	29	B32	22-Aug-17	male	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-170	ELD2	mouse	29	B33	22-Aug-17	male	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-171	ELD2	mouse	29	B34	22-Aug-17	male	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-172	ELD2	mouse	29	B35	22-Aug-17	male	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-173	ELD2	mouse	29	B36	22-Aug-17	female	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-174	ELD2	mouse	29	B37	22-Aug-17	female	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-182	ELD2	mouse	29	B39	22-Aug-17	female	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-183	ELD2	mouse	29	B40	22-Aug-17	female	NA	solid	fecal	NA	green	1week_mouse	1week_post_inoc
-94	ELD2	piglet	6of7	6A	7-Mar-18	NA	NA	solid	fecal	NA	blue	1week_pig	1week_post_inoc
-95	ELD2	piglet	6of7	6B	7-Mar-18	NA	NA	solid	fecal	NA	blue	1week_pig	1week_post_inoc
-96	ELD2	piglet	6of7	6C	7-Mar-18	NA	NA	solid	fecal	NA	blue	1week_pig	1week_post_inoc
-553	ELD2	mouse	29	31	3-Oct-17	male	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-554	ELD2	mouse	29	32	3-Oct-17	male	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-555	ELD2	mouse	29	33	3-Oct-17	male	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-556	ELD2	mouse	29	34	3-Oct-17	male	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-557	ELD2	mouse	29	35	3-Oct-17	male	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-558	ELD2	mouse	29	36	3-Oct-17	female	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-565	ELD2	mouse	29	37	3-Oct-17	female	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-566	ELD2	mouse	29	38	3-Oct-17	female	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-567	ELD2	mouse	29	39	3-Oct-17	female	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-568	ELD2	mouse	29	40	3-Oct-17	female	NA	solid	fecal	NA	green	euthan_mouse	24h_before_euthanization
-243	ELD2	mouse	29	C31	29-Aug-17	male	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-244	ELD2	mouse	29	C32	29-Aug-17	male	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-245	ELD2	mouse	29	C33	29-Aug-17	male	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-246	ELD2	mouse	29	C34	29-Aug-17	male	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-253	ELD2	mouse	29	C35	29-Aug-17	male	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-254	ELD2	mouse	29	C36	29-Aug-17	female	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-255	ELD2	mouse	29	C37	29-Aug-17	female	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-256	ELD2	mouse	29	C38	29-Aug-17	female	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-257	ELD2	mouse	29	C39	29-Aug-17	female	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-258	ELD2	mouse	29	C40	29-Aug-17	female	NA	solid	fecal	NA	green	2weeks_mouse	2weeks_post_inoc
-187	ELD2	piglet	6of7	6A	14-Mar-18	female	NA	solid	fecal	NA	blue	2weeks_pig	2weeks_post_inoc
-188	ELD2	piglet	6of7	6B	14-Mar-18	male	NA	solid	fecal	NA	blue	2weeks_pig	2weeks_post_inoc
-189	ELD2	piglet	6of7	6C	14-Mar-18	male	NA	solid	fecal	NA	blue	2weeks_pig	2weeks_post_inoc
-295	ELD2	mouse	29	D37	5-Sep-17	female	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-296	ELD2	mouse	29	D38	5-Sep-17	female	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-297	ELD2	mouse	29	D39	5-Sep-17	female	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-298	ELD2	mouse	29	D40	5-Sep-17	female	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-373	ELD2	mouse	29	D31	5-Sep-17	male	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-374	ELD2	mouse	29	D32	5-Sep-17	male	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-375	ELD2	mouse	29	D33	5-Sep-17	male	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-376	ELD2	mouse	29	D34	5-Sep-17	male	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-377	ELD2	mouse	29	D35	5-Sep-17	male	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-378	ELD2	mouse	29	D36	5-Sep-17	female	NA	solid	fecal	NA	green	3weeks_mouse	3weeks_post_inoc
-294	ELD2	piglet	6of7	6A	21-Mar-18	female	NA	solid	fecal	NA	blue	3weeks_pig	3weeks_post_inoc
-301	ELD2	piglet	6of7	6B	21-Mar-18	female	NA	solid	fecal	NA	blue	3weeks_pig	3weeks_post_inoc
-302	ELD2	piglet	6of7	6C	21-Mar-18	female	NA	solid	fecal	NA	blue	3weeks_pig	3weeks_post_inoc
-89	ELD2	mouse	29	A31	17-Aug-17	male	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-90	ELD2	mouse	29	A32	17-Aug-17	male	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-100	ELD2	mouse	29	A36	17-Aug-17	female	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-101	ELD2	mouse	29	A37	17-Aug-17	female	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-102	ELD2	mouse	29	A38	17-Aug-17	female	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-109	ELD2	mouse	29	A39	17-Aug-17	female	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-110	ELD2	mouse	29	A40	17-Aug-17	female	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-97	ELD2	mouse	29	A33	17-Aug-17	male	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-98	ELD2	mouse	29	A34	17-Aug-17	male	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-99	ELD2	mouse	29	A35	17-Aug-17	male	NA	solid	fecal	NA	green	2days_mouse	48hrs_post_inoc
-72	ELD2	piglet	6of7	6A	2-Mar-18	female	NA	solid	fecal	NA	blue	2days_pig	48hrs_post_inoc
-79	ELD2	piglet	6of7	6B	2-Mar-18	male	NA	solid	fecal	NA	blue	2days_pig	48hrs_post_inoc
-80	ELD2	piglet	6of7	6C	2-Mar-18	male	NA	solid	fecal	NA	blue	2days_pig	48hrs_post_inoc
-356	ELD2	mouse	29	E31	12-Sep-17	male	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-357	ELD2	mouse	29	E32	12-Sep-17	male	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-358	ELD2	mouse	29	E33	12-Sep-17	male	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-367	ELD2	mouse	29	E36	12-Sep-17	female	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-368	ELD2	mouse	29	E37	12-Sep-17	female	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-369	ELD2	mouse	29	E38	12-Sep-17	female	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-370	ELD2	mouse	29	E39	12-Sep-17	female	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-550	ELD2	mouse	29	E34	12-Sep-17	male	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-551	ELD2	mouse	29	E35	12-Sep-17	male	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-562	ELD2	mouse	29	E40	12-Sep-17	female	NA	solid	fecal	NA	green	4weeks_mouse	4weeks_post_inoc
-237	ELD2	piglet	6of7	6A	28-Mar-18	female	NA	solid	fecal	NA	blue	4weeks_pig	4weeks_post_inoc
-238	ELD2	piglet	6of7	6B	28-Mar-18	male	NA	solid	fecal	NA	blue	4weeks_pig	4weeks_post_inoc
-239	ELD2	piglet	6of7	6C	28-Mar-18	male	NA	solid	fecal	NA	blue	4weeks_pig	4weeks_post_inoc
-448	ELD2	mouse	29	F31	19-Sep-17	male	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-449	ELD2	mouse	29	F32	19-Sep-17	male	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-450	ELD2	mouse	29	F33	19-Sep-17	male	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-457	ELD2	mouse	29	F34	19-Sep-17	male	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-458	ELD2	mouse	29	F35	19-Sep-17	male	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-459	ELD2	mouse	29	F36	19-Sep-17	female	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-460	ELD2	mouse	29	F37	19-Sep-17	female	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-461	ELD2	mouse	29	F38	19-Sep-17	female	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-462	ELD2	mouse	29	F39	19-Sep-17	female	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-469	ELD2	mouse	29	F40	19-Sep-17	female	NA	solid	fecal	NA	green	5weeks_mouse	5weeks_post_inoc
-271	ELD2	piglet	6of7	6A	4-Apr-18	female	NA	solid	fecal	NA	blue	5weeks_pig	5weeks_post_inoc
-272	ELD2	piglet	6of7	6B	4-Apr-18	male	NA	solid	fecal	NA	blue	5weeks_pig	5weeks_post_inoc
-273	ELD2	piglet	6of7	6C	4-Apr-18	male	NA	solid	fecal	NA	blue	5weeks_pig	5weeks_post_inoc
+162	ELD2	mouse	29	B31	22-Aug-17	male	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+169	ELD2	mouse	29	B32	22-Aug-17	male	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+170	ELD2	mouse	29	B33	22-Aug-17	male	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+171	ELD2	mouse	29	B34	22-Aug-17	male	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+172	ELD2	mouse	29	B35	22-Aug-17	male	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+173	ELD2	mouse	29	B36	22-Aug-17	female	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+174	ELD2	mouse	29	B37	22-Aug-17	female	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+182	ELD2	mouse	29	B39	22-Aug-17	female	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+183	ELD2	mouse	29	B40	22-Aug-17	female	NA	solid	fecal	NA	dark green	7_days_mouse	1week_post_inoc
+94	ELD2	piglet	6of7	6A	7-Mar-18	NA	NA	solid	fecal	NA	blue	7_days_pig	1week_post_inoc
+95	ELD2	piglet	6of7	6B	7-Mar-18	NA	NA	solid	fecal	NA	blue	7_days_pig	1week_post_inoc
+96	ELD2	piglet	6of7	6C	7-Mar-18	NA	NA	solid	fecal	NA	blue	7_days_pig	1week_post_inoc
+553	ELD2	mouse	29	31	3-Oct-17	male	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+554	ELD2	mouse	29	32	3-Oct-17	male	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+555	ELD2	mouse	29	33	3-Oct-17	male	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+556	ELD2	mouse	29	34	3-Oct-17	male	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+557	ELD2	mouse	29	35	3-Oct-17	male	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+558	ELD2	mouse	29	36	3-Oct-17	female	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+565	ELD2	mouse	29	37	3-Oct-17	female	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+566	ELD2	mouse	29	38	3-Oct-17	female	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+567	ELD2	mouse	29	39	3-Oct-17	female	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+568	ELD2	mouse	29	40	3-Oct-17	female	NA	solid	fecal	NA	dark green	euthan_mouse	24h_before_euthanization
+243	ELD2	mouse	29	C31	29-Aug-17	male	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+244	ELD2	mouse	29	C32	29-Aug-17	male	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+245	ELD2	mouse	29	C33	29-Aug-17	male	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+246	ELD2	mouse	29	C34	29-Aug-17	male	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+253	ELD2	mouse	29	C35	29-Aug-17	male	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+254	ELD2	mouse	29	C36	29-Aug-17	female	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+255	ELD2	mouse	29	C37	29-Aug-17	female	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+256	ELD2	mouse	29	C38	29-Aug-17	female	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+257	ELD2	mouse	29	C39	29-Aug-17	female	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+258	ELD2	mouse	29	C40	29-Aug-17	female	NA	solid	fecal	NA	dark green	14_days_mouse	2weeks_post_inoc
+187	ELD2	piglet	6of7	6A	14-Mar-18	female	NA	solid	fecal	NA	blue	14_days_pig	2weeks_post_inoc
+188	ELD2	piglet	6of7	6B	14-Mar-18	male	NA	solid	fecal	NA	blue	14_days_pig	2weeks_post_inoc
+189	ELD2	piglet	6of7	6C	14-Mar-18	male	NA	solid	fecal	NA	blue	14_days_pig	2weeks_post_inoc
+295	ELD2	mouse	29	D37	5-Sep-17	female	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+296	ELD2	mouse	29	D38	5-Sep-17	female	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+297	ELD2	mouse	29	D39	5-Sep-17	female	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+298	ELD2	mouse	29	D40	5-Sep-17	female	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+373	ELD2	mouse	29	D31	5-Sep-17	male	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+374	ELD2	mouse	29	D32	5-Sep-17	male	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+375	ELD2	mouse	29	D33	5-Sep-17	male	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+376	ELD2	mouse	29	D34	5-Sep-17	male	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+377	ELD2	mouse	29	D35	5-Sep-17	male	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+378	ELD2	mouse	29	D36	5-Sep-17	female	NA	solid	fecal	NA	dark green	21_days_mouse	3weeks_post_inoc
+294	ELD2	piglet	6of7	6A	21-Mar-18	female	NA	solid	fecal	NA	blue	21_days_pig	3weeks_post_inoc
+301	ELD2	piglet	6of7	6B	21-Mar-18	female	NA	solid	fecal	NA	blue	21_days_pig	3weeks_post_inoc
+302	ELD2	piglet	6of7	6C	21-Mar-18	female	NA	solid	fecal	NA	blue	21_days_pig	3weeks_post_inoc
+89	ELD2	mouse	29	A31	17-Aug-17	male	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+90	ELD2	mouse	29	A32	17-Aug-17	male	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+100	ELD2	mouse	29	A36	17-Aug-17	female	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+101	ELD2	mouse	29	A37	17-Aug-17	female	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+102	ELD2	mouse	29	A38	17-Aug-17	female	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+109	ELD2	mouse	29	A39	17-Aug-17	female	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+110	ELD2	mouse	29	A40	17-Aug-17	female	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+97	ELD2	mouse	29	A33	17-Aug-17	male	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+98	ELD2	mouse	29	A34	17-Aug-17	male	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+99	ELD2	mouse	29	A35	17-Aug-17	male	NA	solid	fecal	NA	dark green	2_days_mouse	48hrs_post_inoc
+72	ELD2	piglet	6of7	6A	2-Mar-18	female	NA	solid	fecal	NA	blue	2_days_pig	48hrs_post_inoc
+79	ELD2	piglet	6of7	6B	2-Mar-18	male	NA	solid	fecal	NA	blue	2_days_pig	48hrs_post_inoc
+80	ELD2	piglet	6of7	6C	2-Mar-18	male	NA	solid	fecal	NA	blue	2_days_pig	48hrs_post_inoc
+356	ELD2	mouse	29	E31	12-Sep-17	male	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+357	ELD2	mouse	29	E32	12-Sep-17	male	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+358	ELD2	mouse	29	E33	12-Sep-17	male	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+367	ELD2	mouse	29	E36	12-Sep-17	female	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+368	ELD2	mouse	29	E37	12-Sep-17	female	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+369	ELD2	mouse	29	E38	12-Sep-17	female	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+370	ELD2	mouse	29	E39	12-Sep-17	female	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+550	ELD2	mouse	29	E34	12-Sep-17	male	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+551	ELD2	mouse	29	E35	12-Sep-17	male	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+562	ELD2	mouse	29	E40	12-Sep-17	female	NA	solid	fecal	NA	dark green	28_days_mouse	4weeks_post_inoc
+237	ELD2	piglet	6of7	6A	28-Mar-18	female	NA	solid	fecal	NA	blue	28_days_pig	4weeks_post_inoc
+238	ELD2	piglet	6of7	6B	28-Mar-18	male	NA	solid	fecal	NA	blue	28_days_pig	4weeks_post_inoc
+239	ELD2	piglet	6of7	6C	28-Mar-18	male	NA	solid	fecal	NA	blue	28_days_pig	4weeks_post_inoc
+448	ELD2	mouse	29	F31	19-Sep-17	male	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+449	ELD2	mouse	29	F32	19-Sep-17	male	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+450	ELD2	mouse	29	F33	19-Sep-17	male	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+457	ELD2	mouse	29	F34	19-Sep-17	male	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+458	ELD2	mouse	29	F35	19-Sep-17	male	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+459	ELD2	mouse	29	F36	19-Sep-17	female	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+460	ELD2	mouse	29	F37	19-Sep-17	female	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+461	ELD2	mouse	29	F38	19-Sep-17	female	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+462	ELD2	mouse	29	F39	19-Sep-17	female	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+469	ELD2	mouse	29	F40	19-Sep-17	female	NA	solid	fecal	NA	dark green	35_days_mouse	5weeks_post_inoc
+271	ELD2	piglet	6of7	6A	4-Apr-18	female	NA	solid	fecal	NA	blue	35_days_pig	5weeks_post_inoc
+272	ELD2	piglet	6of7	6B	4-Apr-18	male	NA	solid	fecal	NA	blue	35_days_pig	5weeks_post_inoc
+273	ELD2	piglet	6of7	6C	4-Apr-18	male	NA	solid	fecal	NA	blue	35_days_pig	5weeks_post_inoc
 517	ELD2	piglet	6of7	6A	11-Apr-18	female	NA	solid	fecal	NA	blue	euthan_pig	at_euthanization
 518	ELD2	piglet	6of7	6B	11-Apr-18	male	NA	solid	fecal	NA	blue	euthan_pig	at_euthanization
 519	ELD2	piglet	6of7	6C	11-Apr-18	male	NA	solid	fecal	NA	blue	euthan_pig	at_euthanization
@@ -93,16 +93,16 @@ R2D272	ELD2	human	NA	NA	NA	NA	NA	solid	fecal	yes	red	donor	elderly2_inoculum-1_m
 359	ELD2	human	NA	NA	2-Mar-18	male	NA	solid	fecal	yes	red	donor	elderly2_inoculum-1_pig
 R2D276	ELD2	human	NA	NA	NA	NA	NA	solid	fecal	yes	red	donor	elderly2_inoculum-2_mouse
 324	ELD2	human	NA	NA	15-Mar-18	female	NA	solid	fecal	yes	red	donor	elderly2_inoculum-2_pig
-431	ELD2	mouse	29	G31	25-Sep-17	male	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-432	ELD2	mouse	29	G32	25-Sep-17	male	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-439	ELD2	mouse	29	G33	25-Sep-17	male	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-440	ELD2	mouse	29	G34	25-Sep-17	male	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-441	ELD2	mouse	29	G35	25-Sep-17	male	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-442	ELD2	mouse	29	G36	25-Sep-17	female	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-443	ELD2	mouse	29	G37	25-Sep-17	female	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-444	ELD2	mouse	29	G38	25-Sep-17	female	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-451	ELD2	mouse	29	G39	25-Sep-17	female	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-452	ELD2	mouse	29	G40	25-Sep-17	female	NA	solid	fecal	NA	green	final_col_mouse	Final_collection
-325	ELD2	piglet	6of7	6A	9-Apr-18	female	NA	solid	fecal	NA	blue	final_col_pig	Final_collection
-326	ELD2	piglet	6of7	6B	9-Apr-18	male	NA	solid	fecal	NA	blue	final_col_pig	Final_collection
-327	ELD2	piglet	6of7	6C	9-Apr-18	male	NA	solid	fecal	NA	blue	final_col_pig	Final_collection
+431	ELD2	mouse	29	G31	25-Sep-17	male	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+432	ELD2	mouse	29	G32	25-Sep-17	male	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+439	ELD2	mouse	29	G33	25-Sep-17	male	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+440	ELD2	mouse	29	G34	25-Sep-17	male	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+441	ELD2	mouse	29	G35	25-Sep-17	male	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+442	ELD2	mouse	29	G36	25-Sep-17	female	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+443	ELD2	mouse	29	G37	25-Sep-17	female	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+444	ELD2	mouse	29	G38	25-Sep-17	female	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+451	ELD2	mouse	29	G39	25-Sep-17	female	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+452	ELD2	mouse	29	G40	25-Sep-17	female	NA	solid	fecal	NA	dark green	40_days_mouse	Final_collection
+325	ELD2	piglet	6of7	6A	9-Apr-18	female	NA	solid	fecal	NA	blue	40_days_pig	Final_collection
+326	ELD2	piglet	6of7	6B	9-Apr-18	male	NA	solid	fecal	NA	blue	40_days_pig	Final_collection
+327	ELD2	piglet	6of7	6C	9-Apr-18	male	NA	solid	fecal	NA	blue	40_days_pig	Final_collection
